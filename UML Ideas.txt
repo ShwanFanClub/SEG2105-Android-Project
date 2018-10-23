@@ -1,0 +1,6 @@
+SEG Final Project UML
+
+Classes
+-Admin
+-User
+-ServiceProvider
