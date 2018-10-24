@@ -32,8 +32,8 @@ public class MainLoginActivity extends AppCompatActivity {
 
         if(validUser){
 
-            //Intent loginIntent = new Intent(this, WelcomeScreen.class);
-            //startActivity(loginIntent);
+            Intent loginIntent = new Intent(this, WelcomeScreen.class);
+            startActivity(loginIntent);
         }
         else{
 
