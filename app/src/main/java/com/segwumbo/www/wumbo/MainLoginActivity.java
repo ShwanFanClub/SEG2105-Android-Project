@@ -28,7 +28,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
         String username = usernameText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
-        boolean validUser = false;
+        boolean validUser = true;
 
         if(validUser){
 
