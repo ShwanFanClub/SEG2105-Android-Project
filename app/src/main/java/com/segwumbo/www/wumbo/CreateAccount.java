@@ -1,16 +1,16 @@
 package com.segwumbo.www.wumbo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class CreateAccount extends AppCompatActivity {
+
     private final int usernameLength = 6;
     private final int passwordLength = 8;
     private DatabaseReference database;
@@ -52,15 +52,17 @@ public class CreateAccount extends AppCompatActivity {
         return false;
     }
 
-    // lets user go back after creating an account
-    public void OnBackButton(View view){
+    //Checks to see if an admin account has already been created
+    private boolean adminExist(String role){
 
-        Intent createAccountIntent = new Intent(this, MainLoginActivity.class);
-        startActivity(createAccountIntent);
+        for(UserAccount account: MainLoginActivity.allUserAccounts){
+            if(role.equals(account.getRole())){
+                return true;
+            }
+        }
+        return false;
     }
 
-    // click event for the create account button
-    // not added to the create account button yet cuz it DOESNT SHOW UP
     public void OnCreateAccountClick(View view){
 
         EditText usernameText = findViewById(R.id.usernameCreateText);
@@ -69,10 +71,16 @@ public class CreateAccount extends AppCompatActivity {
 
         String username = usernameText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
-        String role = roleText.getText().toString().trim();
+        String role = roleText.getText().toString().toLowerCase().trim();
 
         if(checkFieldValidity(username, password, role)){
-            if(checkUsername(username)){
+
+
+
+            if(role.equals("admin") && adminExist(role)){
+                Toast.makeText(this, "Admin account already exists!", Toast.LENGTH_LONG).show();
+            }
+            else if(checkUsername(username)){
                 Toast.makeText(this, "Username already exists!", Toast.LENGTH_LONG).show();
             }
             else {
@@ -82,7 +90,8 @@ public class CreateAccount extends AppCompatActivity {
                 // stores user in database as a JSON object
                 database.child(id).setValue(newUser);
 
-                Toast.makeText(this, "Account sucessfully created!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Account successfully created!", Toast.LENGTH_LONG).show();
+                finish();
             }
         }else{
             Toast.makeText(this, "Username must be "+ String.valueOf(usernameLength)+" characters long, " +

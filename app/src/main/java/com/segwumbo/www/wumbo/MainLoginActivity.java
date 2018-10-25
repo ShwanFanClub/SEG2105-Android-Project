@@ -2,6 +2,7 @@ package com.segwumbo.www.wumbo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.content.Intent;
@@ -20,6 +21,7 @@ public class MainLoginActivity extends AppCompatActivity {
     // static database variables
     public static ArrayList<UserAccount> allUserAccounts;
     public static DatabaseReference database;
+
 
     @Override
     protected void onStart() {
@@ -57,9 +59,9 @@ public class MainLoginActivity extends AppCompatActivity {
 
     // on button click, goes to the create account page
     public void OnCreateAccountButton(View view){
-
         Intent createAccountIntent = new Intent(this, CreateAccount.class);
         startActivity(createAccountIntent);
+
     }
 
 
@@ -89,7 +91,11 @@ public class MainLoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString().trim();
 
         // makes sure username and password are stored in the system
-        if(validUser(username, password)){
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
+
+            Toast.makeText(this, "Please enter in a username & password", Toast.LENGTH_LONG).show();
+        }
+        else if(validUser(username, password)){
 
             // changes to new screen
             Intent loginIntent = new Intent(this, WelcomeScreen.class);
