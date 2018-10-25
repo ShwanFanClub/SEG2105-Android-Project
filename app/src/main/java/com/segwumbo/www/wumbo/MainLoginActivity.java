@@ -65,6 +65,10 @@ public class MainLoginActivity extends AppCompatActivity {
 
     public boolean validUser(String username, String password){
 
+        if(allUserAccounts == null){
+            return false;
+        }
+
         for(UserAccount account: allUserAccounts){
             if(account.getUsername().equals(username) &&
                     account.getPassword().equals(password)){

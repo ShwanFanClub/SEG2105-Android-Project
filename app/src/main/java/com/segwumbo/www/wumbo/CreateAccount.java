@@ -38,12 +38,18 @@ public class CreateAccount extends AppCompatActivity {
     // check to see if username already exists
     private boolean checkUsername(String username){
 
+        // first username so must not exist
+        if(MainLoginActivity.allUserAccounts == null){
+            return false;
+        }
+
+        // username exists
         for(UserAccount account: MainLoginActivity.allUserAccounts){
             if(username.equals(account.getUsername())){
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     // lets user go back after creating an account
@@ -66,7 +72,7 @@ public class CreateAccount extends AppCompatActivity {
         String role = roleText.getText().toString().trim();
 
         if(checkFieldValidity(username, password, role)){
-            if(!checkUsername(username)){
+            if(checkUsername(username)){
                 Toast.makeText(this, "Username already exists!", Toast.LENGTH_LONG).show();
             }
             else {
