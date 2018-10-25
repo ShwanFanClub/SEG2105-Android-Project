@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WelcomeScreen"></activity>
+        <activity android:name=".CreateAccount"></activity>
     </application>
 
 </manifest>
