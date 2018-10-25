@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "710415177934",
+    "firebase_url": "https://wumbo-3b088.firebaseio.com",
+    "project_id": "wumbo-3b088",
+    "storage_bucket": "wumbo-3b088.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710415177934:android:138ff6b1f77aeae5",
+        "android_client_info": {
+          "package_name": "com.segwumbo.www.wumbo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710415177934-icel99qo9350a6in12ngrv7m267a0njc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.segwumbo.www.wumbo",
+            "certificate_hash": "abe770fc2c3b2026758cc8b89594a40d01fec041"
+          }
+        },
+        {
+          "client_id": "710415177934-dt92o1mkih6s084osmukiut39886jhvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ2s1IHgL8PiYTgSwVqP9KORx_9d_-qc4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710415177934-dt92o1mkih6s084osmukiut39886jhvc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

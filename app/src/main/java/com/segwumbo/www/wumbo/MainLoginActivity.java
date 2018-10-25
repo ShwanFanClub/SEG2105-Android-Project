@@ -7,37 +7,93 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class MainLoginActivity extends AppCompatActivity {
+
+    // static database variables
+    public static ArrayList<UserAccount> allUserAccounts;
+    public static DatabaseReference database;
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+        database.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                allUserAccounts.clear();
+
+                // getting all user account data from firebase
+                for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
+                    UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
+                    allUserAccounts.add(account);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
+        // gets the reference of the database
+        database = FirebaseDatabase.getInstance().getReference();
     }
 
+
+    // on button click, goes to the create account page
     public void OnCreateAccountButton(View view){
 
-        //Intent createAccountIntent = new Intent(getApplicationContext(), CreateAccount.class);
-        //startActivityForResult(createAccountIntent, 0);
+        Intent createAccountIntent = new Intent(this, CreateAccount.class);
+        startActivity(createAccountIntent);
     }
 
+
+    public boolean validUser(String username, String password){
+
+        for(UserAccount account: allUserAccounts){
+            if(account.getUsername().equals(username) &&
+                    account.getPassword().equals(password)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // on button click, checks to see if account is valid
     public void OnLoginButton(View view){
 
         EditText usernameText = findViewById(R.id.usernameEditText);
-        EditText passwordText = findViewById(R.id.psswrdEditText);
+        EditText passwordText = findViewById(R.id.passwordEditText);
 
         String username = usernameText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
-        boolean validUser = true;
 
-        if(validUser){
+        // makes sure username and password are stored in the system
+        if(validUser(username, password)){
 
+            // changes to new screen
             Intent loginIntent = new Intent(this, WelcomeScreen.class);
             startActivity(loginIntent);
         }
         else{
 
-            Toast.makeText(this, "No User Found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Account Found", Toast.LENGTH_LONG).show();
             passwordText.setText("");
         }
     }
