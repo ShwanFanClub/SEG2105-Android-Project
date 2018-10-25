@@ -70,7 +70,7 @@
             android:id="@+id/createAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="OnBackButton"
+            android:onClick="OnCreateAccountClick"
             android:text="Create account" />
     </LinearLayout>
 

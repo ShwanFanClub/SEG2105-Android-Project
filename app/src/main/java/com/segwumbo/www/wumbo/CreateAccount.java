@@ -55,7 +55,7 @@ public class CreateAccount extends AppCompatActivity {
 
     // click event for the create account button
     // not added to the create account button yet cuz it DOESNT SHOW UP
-    public void onCreateAccountClick(){
+    public void OnCreateAccountClick(View view){
 
         EditText usernameText = findViewById(R.id.usernameCreateText);
         EditText passwordText = findViewById(R.id.passwordCreateText);
