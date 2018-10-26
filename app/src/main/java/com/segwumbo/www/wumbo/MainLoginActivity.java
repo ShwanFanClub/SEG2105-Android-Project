@@ -31,7 +31,9 @@ public class MainLoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                allUserAccounts.clear();
+                if(allUserAccounts != null) {
+                    allUserAccounts.clear();
+                }
 
                 // getting all user account data from firebase
                 for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){

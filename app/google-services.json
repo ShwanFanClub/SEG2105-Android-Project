@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "710415177934-s1n5uqhefm82r22a6jr5bo88535e9oam.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.segwumbo.www.wumbo",
+            "certificate_hash": "ee33f557b8c4790e05782194d1386d473ebf0d4a"
+          }
+        },
+        {
           "client_id": "710415177934-dt92o1mkih6s084osmukiut39886jhvc.apps.googleusercontent.com",
           "client_type": 3
         }
