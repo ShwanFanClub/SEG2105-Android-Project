@@ -8,19 +8,23 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import android.widget.Spinner;
 import com.google.firebase.database.FirebaseDatabase;
-
+import android.widget.*;
 
 public class CreateAccount extends AppCompatActivity {
 
     private final int usernameLength = 4;
     private final int passwordLength = 5;
     private DatabaseReference database;
+    private Spinner dropdown;
+    private String[] items = new String[]{"Home Owner", "Service Provider", "Admin"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
+        dropdown = findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
         // database reference for the MainLoginActivity class
         database = MainLoginActivity.database;
     }
@@ -32,8 +36,8 @@ public class CreateAccount extends AppCompatActivity {
                 password.length() < passwordLength ||
                 role.length() == 0){
             return false;
-
-        } else{
+        }
+        else{
             return true;
         }
     }
@@ -70,11 +74,13 @@ public class CreateAccount extends AppCompatActivity {
 
         EditText usernameText = findViewById(R.id.usernameCreateText);
         EditText passwordText = findViewById(R.id.passwordCreateText);
-        EditText roleText = findViewById(R.id.roleCreateText);
+        //EditText roleText = findViewById(R.id.roleCreateText);
 
         String username = usernameText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
-        String role = roleText.getText().toString().toLowerCase().trim();
+        //String role = roleText.getText().toString().toLowerCase().trim();
+        String role = items[dropdown.getSelectedItemPosition()].toLowerCase().trim();
+
 
         if(checkFieldValidity(username, password, role)){
 

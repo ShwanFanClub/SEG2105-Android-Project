@@ -50,13 +50,10 @@
             android:hint="Password"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/roleCreateText"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="500px"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Role"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content" />
 
         <Space
             android:layout_width="match_parent"
