@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MainLoginActivity extends AppCompatActivity {
 
     // static database variables
-    public static ArrayList<UserAccount> allUserAccounts;
+    public static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
     public static DatabaseReference database;
 
     @Override
@@ -28,17 +28,16 @@ public class MainLoginActivity extends AppCompatActivity {
         super.onStart();
         database.addValueEventListener(new ValueEventListener() {
 
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(allUserAccounts != null) {
-                    allUserAccounts.clear();
-
-                    // getting all user account data from firebase
-                    for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
-                        UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
-                        allUserAccounts.add(account);
-                    }
+                }
+                // getting all user account data from firebase
+                for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
+                    UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
+                    allUserAccounts.add(account);
                 }
             }
 
@@ -74,6 +73,8 @@ public class MainLoginActivity extends AppCompatActivity {
         }
 
         for(UserAccount account: allUserAccounts){
+
+
             if(account.getUsername().equals(username) &&
                     account.getPassword().equals(password)){
                 return true;
