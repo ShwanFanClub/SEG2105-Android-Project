@@ -65,11 +65,7 @@ public class CreateAccount extends AppCompatActivity {
         }
         return false;
     }
-
-    private boolean validateEmail(){
-
-    }
-
+    
     public void OnCreateAccountClick(View view){
 
         EditText usernameText = findViewById(R.id.usernameCreateText);
