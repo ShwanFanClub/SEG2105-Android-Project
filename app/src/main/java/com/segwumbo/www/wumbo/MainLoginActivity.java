@@ -28,7 +28,6 @@ public class MainLoginActivity extends AppCompatActivity {
         super.onStart();
         database.addValueEventListener(new ValueEventListener() {
 
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -80,7 +79,6 @@ public class MainLoginActivity extends AppCompatActivity {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -96,18 +94,22 @@ public class MainLoginActivity extends AppCompatActivity {
         // makes sure username and password are stored in the system
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
 
-            Toast.makeText(this, "Please enter in a username & password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please enter in a username & password", Toast.LENGTH_SHORT).show();
         }
         else if(validUser(username, password)){
 
             // changes to new screen
             Intent loginIntent = new Intent(this, WelcomeScreen.class);
             loginIntent.putExtra("username", username);
+
+            usernameText.setText("");
+            passwordText.setText("");
+
             startActivity(loginIntent);
         }
         else{
 
-            Toast.makeText(this, "No Account Found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Account Found", Toast.LENGTH_SHORT).show();
             passwordText.setText("");
         }
     }

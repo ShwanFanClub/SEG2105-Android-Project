@@ -17,17 +17,18 @@ public class WelcomeScreen extends AppCompatActivity {
 
         //Get user's name from firebase
         String userName = bundle.getString("username");
-
-        //Get user's role from firebase
-        String userRole = "Sponge";
-
         // Display user's name on the device
-        TextView welcomeUser = (TextView) findViewById(R.id.welcomeUser);
+        TextView welcomeUser = findViewById(R.id.welcomeUser);
         welcomeUser.setText("Welcome to Wumbo, " + userName + "!");
 
-        // Display user's role on the device
-        TextView welcomeRole = (TextView) findViewById(R.id.userRole);
-        welcomeRole.setText("You are logged in as : " + userRole);
+        for(UserAccount account: MainLoginActivity.allUserAccounts){
+            if(account.getUsername().equals(userName)){
+
+                // Display user's role on the device
+                TextView welcomeRole = findViewById(R.id.userRole);
+                welcomeRole.setText("You are logged in as: " + account.getRole());
+            }
+        }
 
     }
 }

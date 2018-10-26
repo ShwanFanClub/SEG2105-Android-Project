@@ -12,7 +12,7 @@ public class UserAccount {
         // Default constructor required for calls to DataSnapshot.getValue(UserAccount.class)
     }
 
-    public UserAccount(String id, String username, String password, String role){
+    public UserAccount(String id, String email, String username, String password, String role){
         this.id = id;
         this.username = username;
         this.password = password;
