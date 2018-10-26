@@ -27,7 +27,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         // Display user's role on the device
         TextView welcomeRole = (TextView) findViewById(R.id.userRole);
-        welcomeRole.setText("You are a/an : " + userRole);
+        welcomeRole.setText("You are logged in as : " + userRole);
 
     }
 }

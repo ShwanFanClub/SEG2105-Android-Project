@@ -12,8 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CreateAccount extends AppCompatActivity {
 
-    private Spinner roleSelection;
-    private static final String[] roles = {"Home Owner", "Service Provider", "Admin"};
     private final int usernameLength = 4;
     private final int passwordLength = 5;
     private DatabaseReference database;
@@ -22,6 +20,7 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
         // database reference for the MainLoginActivity class
         database = MainLoginActivity.database;
     }
@@ -65,6 +64,10 @@ public class CreateAccount extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private boolean validateEmail(){
+
     }
 
     public void OnCreateAccountClick(View view){

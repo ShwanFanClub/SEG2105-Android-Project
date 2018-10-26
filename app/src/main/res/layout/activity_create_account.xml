@@ -35,6 +35,14 @@
             android:layout_height="50px" />
 
         <EditText
+            android:id="@+id/emailAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textNoSuggestions|textEmailAddress" />
+
+        <EditText
             android:id="@+id/usernameCreateText"
             android:layout_width="500px"
             android:layout_height="wrap_content"

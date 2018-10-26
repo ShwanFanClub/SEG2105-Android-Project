@@ -5,6 +5,7 @@ public class UserAccount {
     private String id;
     private String username;
     private String password;
+    private String email;
     private String role;
 
     public UserAccount() {
@@ -15,6 +16,7 @@ public class UserAccount {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
         this.role = role;
     }
 
@@ -32,6 +34,14 @@ public class UserAccount {
 
     public String getUsername(){
         return this.username;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public void setPassword(String password){

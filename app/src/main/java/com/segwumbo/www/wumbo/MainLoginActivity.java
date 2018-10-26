@@ -22,7 +22,6 @@ public class MainLoginActivity extends AppCompatActivity {
     public static ArrayList<UserAccount> allUserAccounts;
     public static DatabaseReference database;
 
-
     @Override
     protected void onStart() {
 
