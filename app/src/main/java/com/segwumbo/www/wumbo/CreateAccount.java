@@ -6,13 +6,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
+import android.widget.Spinner;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class CreateAccount extends AppCompatActivity {
 
-    private final int usernameLength = 6;
-    private final int passwordLength = 8;
+    private Spinner roleSelection;
+    private static final String[] roles = {"Home Owner", "Service Provider", "Admin"};
+    private final int usernameLength = 4;
+    private final int passwordLength = 5;
     private DatabaseReference database;
 
     @Override
@@ -30,6 +33,7 @@ public class CreateAccount extends AppCompatActivity {
                 password.length() < passwordLength ||
                 role.length() == 0){
             return false;
+
         } else{
             return true;
         }

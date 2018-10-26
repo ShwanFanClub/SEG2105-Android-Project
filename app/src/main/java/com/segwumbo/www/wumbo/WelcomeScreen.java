@@ -13,15 +13,13 @@ public class WelcomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+        Bundle bundle = getIntent().getExtras();
 
         //Get user's name from firebase
-        String userName = "Spongebob";
+        String userName = bundle.getString("username");
 
         //Get user's role from firebase
         String userRole = "Sponge";
-
-        //Get user's username from firebase
-        String userUsername = "sponge123";
 
         // Display user's name on the device
         TextView welcomeUser = (TextView) findViewById(R.id.welcomeUser);
@@ -29,12 +27,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         // Display user's role on the device
         TextView welcomeRole = (TextView) findViewById(R.id.userRole);
-        welcomeRole.setText("Your role is: " + userRole);
-
-        // Display user's username on device
-        TextView welcomeUsername = (TextView) findViewById(R.id.userUsername);
-        welcomeUsername.setText("Your username is: " + userUsername);
-
+        welcomeRole.setText("You are a/an : " + userRole);
 
     }
 }

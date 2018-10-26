@@ -52,6 +52,7 @@ public class MainLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
+
         // gets the reference of the database
         database = FirebaseDatabase.getInstance().getReference();
     }
@@ -99,6 +100,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
             // changes to new screen
             Intent loginIntent = new Intent(this, WelcomeScreen.class);
+            loginIntent.putExtra("username", username);
             startActivity(loginIntent);
         }
         else{
