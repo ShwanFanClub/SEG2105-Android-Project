@@ -33,12 +33,12 @@ public class MainLoginActivity extends AppCompatActivity {
 
                 if(allUserAccounts != null) {
                     allUserAccounts.clear();
-                }
 
-                // getting all user account data from firebase
-                for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
-                    UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
-                    allUserAccounts.add(account);
+                    // getting all user account data from firebase
+                    for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
+                        UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
+                        allUserAccounts.add(account);
+                    }
                 }
             }
 
