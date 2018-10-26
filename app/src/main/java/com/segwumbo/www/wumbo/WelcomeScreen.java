@@ -15,8 +15,6 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
         Bundle bundle = getIntent().getExtras();
 
-        //Recommit
-
         //Get user's name from firebase
         String userName = bundle.getString("username");
 
