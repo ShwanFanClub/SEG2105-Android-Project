@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class ModifyServices extends AppCompatActivity {
 
     // static database variables
-    public static ArrayList<Service> allServices = new ArrayList<Service>();
-    public static DatabaseReference databaseServices;
+    ArrayList<Service> allServices = new ArrayList<Service>();
+    DatabaseReference databaseServices;
 
     @Override
     protected void onStart() {
@@ -90,6 +90,19 @@ public class ModifyServices extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    // editing service from the database the id key
+    public void editService(String id, String name, double hourlyRate){
+        DatabaseReference serviceToEdit = databaseServices.child(id);
+        Service newService = new Service(id, name, hourlyRate);
+        serviceToEdit.setValue(serviceToEdit);
+    }
+
+    // removing service from the database the id key
+    public void deleteService(String id){
+        DatabaseReference serviceToDelete = databaseServices.child(id);
+        serviceToDelete.removeValue();
     }
 
     public void OnCreateServiceClick(View view) {
