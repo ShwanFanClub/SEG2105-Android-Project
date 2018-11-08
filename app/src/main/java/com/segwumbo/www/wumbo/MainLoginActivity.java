@@ -20,23 +20,24 @@ public class MainLoginActivity extends AppCompatActivity {
 
     // static database variables
     public static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
-    public static DatabaseReference database;
+    public static DatabaseReference databaseUserAccounts;
 
     @Override
     protected void onStart() {
 
         super.onStart();
-        database.addValueEventListener(new ValueEventListener() {
+        databaseUserAccounts.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(allUserAccounts != null) {
-                }
-                // getting all user account data from firebase
-                for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
-                    UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
-                    allUserAccounts.add(account);
+
+                    // getting all user account data from firebase
+                    for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
+                        UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
+                        allUserAccounts.add(account);
+                    }
                 }
             }
 
@@ -53,17 +54,15 @@ public class MainLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_login);
 
         // gets the reference of the database
-        database = FirebaseDatabase.getInstance().getReference("users");
+        databaseUserAccounts = FirebaseDatabase.getInstance().getReference("users");
     }
 
 
     // on button click, goes to the create account page
     public void OnCreateAccountButton(View view){
-        Intent createAccountIntent = new Intent(this, CreateAccount.class);
+        Intent createAccountIntent = new Intent(this, ModifyServices.class); // should be CreateAccount.class
         startActivity(createAccountIntent);
-
     }
-
 
     public boolean validUser(String username, String password){
 

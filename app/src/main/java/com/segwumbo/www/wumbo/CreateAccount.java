@@ -23,7 +23,7 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // database reference for the MainLoginActivity class
-        database = MainLoginActivity.database;
+        database = MainLoginActivity.databaseUserAccounts;
 
         if(adminExist()){
             //If an admin account already exits, the option to create an admin account option is removed

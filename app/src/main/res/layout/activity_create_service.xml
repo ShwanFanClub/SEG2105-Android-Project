@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyServices">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/serviceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Create New Service"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50px" />
+
+
+        <EditText
+            android:id="@+id/serviceNameText"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/hourlyRateText"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Hourly Rate"
+            android:inputType="textPersonName" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50px" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25px" />
+
+        <Button
+            android:id="@+id/createServiceButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:onClick="OnCreateServiceClick"
+            android:text="Create service" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
