@@ -53,7 +53,7 @@ public class MainLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_login);
 
         // gets the reference of the database
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference("users");
     }
 
 
@@ -72,7 +72,6 @@ public class MainLoginActivity extends AppCompatActivity {
         }
 
         for(UserAccount account: allUserAccounts){
-
 
             if(account.getUsername().equals(username) &&
                     account.getPassword().equals(password)){
