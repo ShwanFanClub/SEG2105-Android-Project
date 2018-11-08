@@ -105,7 +105,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
             startActivity(loginIntent);
         }
-        else{//I want to get that green wall with daily commits
+        else{
 
             Toast.makeText(this, "No Account Found", Toast.LENGTH_SHORT).show();
             passwordText.setText("");

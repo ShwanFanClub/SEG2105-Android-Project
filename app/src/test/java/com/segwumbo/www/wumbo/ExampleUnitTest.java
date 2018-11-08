@@ -32,4 +32,9 @@ public class ExampleUnitTest {
         passwordField.setText("admin");
         assertTrue(loginActivity.validUser(loginActivity.findViewById(R.id.usernameEditText).toString(), loginActivity.findViewById(R.id.passwordEditText).toString()));
     }
+
+    
+
+
+
 }
