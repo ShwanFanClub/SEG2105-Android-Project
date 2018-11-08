@@ -79,7 +79,7 @@ public class ModifyServices extends AppCompatActivity {
     private boolean checkServiceName(String serviceName) {
 
         // checks to see if service exists
-        if (MainLoginActivity.allUserAccounts != null) {
+        if (allServices != null) {
             // username exists
             for (Service service : allServices) {
 
@@ -121,7 +121,7 @@ public class ModifyServices extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "Invalid service name or the hourly rate entered is not a number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Service or hourly rate are not valid", Toast.LENGTH_LONG).show();
         }
     }
 }

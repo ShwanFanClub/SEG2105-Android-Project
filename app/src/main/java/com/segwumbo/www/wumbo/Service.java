@@ -11,9 +11,10 @@ public class Service {
     }
 
     public Service(String id, String name, double hourlyRate){
-        this.id = id;
-        this.name = name;
-        this.hourlyRate = hourlyRate;
+
+        setId(id);
+        setName(name);
+        setHourlyRate(hourlyRate);
     }
 
     public void setId(String id){
@@ -24,7 +25,7 @@ public class Service {
         return this.id;
     }
 
-    public void setName(String hourlyRate){
+    public void setName(String name){
         this.name = name;
     }
 
