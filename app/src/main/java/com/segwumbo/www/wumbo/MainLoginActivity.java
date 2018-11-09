@@ -60,7 +60,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
     // on button click, goes to the create account page
     public void OnCreateAccountButton(View view){
-        Intent createAccountIntent = new Intent(this, ModifyServices.class); // should be CreateAccount.class
+        Intent createAccountIntent = new Intent(this, CreateAccount.class);
         startActivity(createAccountIntent);
     }
 
