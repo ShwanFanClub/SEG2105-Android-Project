@@ -1,10 +1,8 @@
 package com.segwumbo.www.wumbo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 public class WelcomeScreen extends AppCompatActivity {
@@ -26,6 +24,13 @@ public class WelcomeScreen extends AppCompatActivity {
 
                 // Display user's role on the device
                 TextView welcomeRole = findViewById(R.id.userRole);
+
+                // Redirect to ModifyServices page
+                if(account.getRole().equals("admin")){
+                    Intent modifyServices = new Intent(this, ModifyServices.class);
+                    startActivity(modifyServices);
+
+                }
                 welcomeRole.setText("You are logged in as: " + account.getRole());
             }
         }

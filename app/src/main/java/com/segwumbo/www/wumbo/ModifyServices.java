@@ -23,6 +23,7 @@ public class ModifyServices extends AppCompatActivity{
     // static database variables
     ArrayList<Service> allServices = new ArrayList<Service>();
     DatabaseReference databaseServices;
+
     RecyclerView rvServices;
     @Override
     protected void onStart() {
