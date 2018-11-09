@@ -2,6 +2,8 @@ package com.segwumbo.www.wumbo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,14 +15,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ModifyServices extends AppCompatActivity {
+public class ModifyServices extends AppCompatActivity{
 
     // static database variables
     ArrayList<Service> allServices = new ArrayList<Service>();
     DatabaseReference databaseServices;
-
+    RecyclerView rvServices;
     @Override
     protected void onStart() {
 
@@ -37,6 +40,9 @@ public class ModifyServices extends AppCompatActivity {
                         Service service = serviceSnapshot.getValue(Service.class);
                         allServices.add(service);
                     }
+                    List<Service> test = new ArrayList<>();
+                    ServiceAdapter sAdapter = new ServiceAdapter(allServices);
+                    rvServices.setAdapter(sAdapter);
                 }
             }
 
@@ -45,15 +51,19 @@ public class ModifyServices extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        rvServices.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_service);
-
         // gets the reference of the database
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
+        rvServices = (RecyclerView) findViewById(R.id.recycle_services);
+
+
     }
 
 
