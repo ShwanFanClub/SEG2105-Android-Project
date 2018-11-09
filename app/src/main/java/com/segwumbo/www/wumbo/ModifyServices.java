@@ -42,7 +42,12 @@ public class ModifyServices extends AppCompatActivity{
                         allServices.add(service);
                     }
                     List<Service> test = new ArrayList<>();
-                    ServiceAdapter sAdapter = new ServiceAdapter(allServices);
+                    ServiceAdapter sAdapter = new ServiceAdapter(allServices, new ClickListener() {
+                        @Override
+                        public void onPositionClicked(int position) {
+
+                        }
+                    });
                     rvServices.setAdapter(sAdapter);
                 }
             }
