@@ -17,8 +17,6 @@ import static org.junit.Assert.*;
 
 public class MainLoginActivityTest {
 
-    //Check User name
-
     @Rule
     public ActivityTestRule<MainLoginActivity> mActivityTestRule = new ActivityTestRule<MainLoginActivity>(MainLoginActivity.class);
     private MainLoginActivity mActivity = null;
@@ -37,6 +35,7 @@ public class MainLoginActivityTest {
 
     }
 
+    // Test 1: Test to see if both Username and Password are right
     @Test
     @UiThreadTest
     public void testSuccessBothRight() throws Exception {
@@ -53,6 +52,7 @@ public class MainLoginActivityTest {
         assertSame(mActivity.validUser(name, password), true);
     }
 
+    // Test 2: Test to see if both Username and Password are blank
     @Test
     @UiThreadTest
     public void testFailBothBlank()throws Exception{
@@ -68,6 +68,8 @@ public class MainLoginActivityTest {
 
         assertSame(mActivity.validUser(name, password), false);
     }
+
+    // Test 3: Test to see if Username is right, and Password is wrong
     @Test
     @UiThreadTest
     public void testFailRightUsernameWrongPassword() throws Exception{
@@ -79,6 +81,40 @@ public class MainLoginActivityTest {
         assertNotNull(mActivity.findViewById(R.id.passwordEditText));
         textPassword = mActivity.findViewById(R.id.passwordEditText);
         textPassword.setText("fido");
+        String password = textPassword.getText().toString();
+
+        assertSame(mActivity.validUser(name, password), false);
+    }
+
+    // Test 4: Test to see if Username is wrong, and Password is right
+    @Test
+    @UiThreadTest
+    public void testFailWrongUsernameRightPassword() throws Exception{
+        assertNotNull(mActivity.findViewById(R.id.usernameEditText));
+        textUser = mActivity.findViewById(R.id.usernameEditText);
+        textUser.setText("goofy");
+        String name = textUser.getText().toString();
+
+        assertNotNull(mActivity.findViewById(R.id.passwordEditText));
+        textPassword = mActivity.findViewById(R.id.passwordEditText);
+        textPassword.setText("snoopy");
+        String password = textPassword.getText().toString();
+
+        assertSame(mActivity.validUser(name, password), false);
+    }
+
+    // Test 5: Test to see if both Username and Password are wrong
+    @Test
+    @UiThreadTest
+    public void testFailWrongUsernameWrongPassword() throws Exception{
+        assertNotNull(mActivity.findViewById(R.id.usernameEditText));
+        textUser = mActivity.findViewById(R.id.usernameEditText);
+        textUser.setText("scooby");
+        String name = textUser.getText().toString();
+
+        assertNotNull(mActivity.findViewById(R.id.passwordEditText));
+        textPassword = mActivity.findViewById(R.id.passwordEditText);
+        textPassword.setText("scrappy");
         String password = textPassword.getText().toString();
 
         assertSame(mActivity.validUser(name, password), false);
