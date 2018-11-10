@@ -2,13 +2,9 @@ package com.segwumbo.www.wumbo;
 
 import android.util.Log;
 import android.widget.TextView;
-
 import org.junit.Test;
 import org.junit.Before;
-
-
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 /**
@@ -18,7 +14,6 @@ import static org.junit.Assert.*;
  */
 
 public class ExampleUnitTest {
- /**
     private MainLoginActivity loginActivity;
 
     @Before
@@ -33,7 +28,7 @@ public class ExampleUnitTest {
         TextView passwordField = loginActivity.findViewById(R.id.passwordEditText);
         passwordField.setText("admin");
         assertTrue(loginActivity.validUser(loginActivity.findViewById(R.id.usernameEditText).toString(), loginActivity.findViewById(R.id.passwordEditText).toString()));
-    }*/
+    }
 
     
 
