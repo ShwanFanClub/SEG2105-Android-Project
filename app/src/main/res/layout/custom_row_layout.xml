@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:gravity="center|start"
+            android:onClick="OnDeleteClick"
             android:text="Delete"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"

@@ -1,6 +1,8 @@
 package com.segwumbo.www.wumbo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.se.omapi.SEService;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +12,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext;
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder>  {
 
-
+    DatabaseReference databaseServices = FirebaseDatabase.getInstance().getReference("services");
     private final ClickListener listener;
-    private List<Service> mServices;
+    private List<Service> mServices = new ArrayList<>();
     public ServiceAdapter(List<Service> service, ClickListener listener) {
-        mServices = service;
+        for (int i = 0; i<service.size();i++){
+            mServices.add(service.get(i));
+        }
         this.listener = listener;
     }
     @Override
@@ -48,6 +60,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     public int getItemCount() {
         return mServices.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView ServiceName;
         public TextView ServiceCost;
@@ -66,8 +79,48 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         @Override
         public void onClick(View v) {
             if (v.getId() == DeleteButton.getId()) {
-                Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition())+ " "+getItemCount(), Toast.LENGTH_SHORT).show();
+
+
+                /*
+                DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
+                serviceToDelete.removeValue();
+                mServices.remove(getAdapterPosition());
+                ArrayList<Service> clone = new ArrayList<>();
+                while (!mServices.isEmpty()){
+                    clone.add();
+                    mServices.remove(0);
+                }
+                mServices.clear();
+                mServices.addAll(clone);
+                notifyDataSetChanged();*/
+                DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
+                Service temp = mServices.get(getAdapterPosition());
+                mServices.remove(getAdapterPosition());
+                ArrayList<Service> clone = new ArrayList<>();
+                while (!mServices.isEmpty()){
+                    clone.add(new Service(mServices.get(0).getId(),mServices.get(0).getName(),mServices.get(0).getHourlyRate()));
+                    mServices.remove(0);
+                }
+                mServices.clear();
+                mServices.addAll(clone);
+                notifyDataSetChanged();
+                serviceToDelete.removeValue();
+                ((ModifyServices)v.getContext()).refresh();
+                //for (int i = 0; i<(clone.size()+1);i++){
+                //    DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
+
+                /*String id = databaseServices.push().getKey();
+                Service newService;
+
+                newService = new Service(id, serviceName, Double.parseDouble(hourlyRate));
+
+                // stores user in database as a JSON object
+                databaseServices.child(id).setValue(newService);*/
+
             }
+
         }
+
     }
 }

@@ -1,10 +1,13 @@
 package com.segwumbo.www.wumbo;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,15 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ModifyServices extends AppCompatActivity{
+public class ModifyServices extends AppCompatActivity {
 
     // static database variables
     ArrayList<Service> allServices = new ArrayList<Service>();
     DatabaseReference databaseServices;
-
+    Button DeleteButton;
     RecyclerView rvServices;
     @Override
+
     protected void onStart() {
 
         super.onStart();
@@ -41,11 +44,9 @@ public class ModifyServices extends AppCompatActivity{
                         Service service = serviceSnapshot.getValue(Service.class);
                         allServices.add(service);
                     }
-                    List<Service> test = new ArrayList<>();
                     ServiceAdapter sAdapter = new ServiceAdapter(allServices, new ClickListener() {
                         @Override
                         public void onPositionClicked(int position) {
-
                         }
                     });
                     rvServices.setAdapter(sAdapter);
@@ -68,10 +69,9 @@ public class ModifyServices extends AppCompatActivity{
         // gets the reference of the database
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
         rvServices = (RecyclerView) findViewById(R.id.recycle_services);
-
+        DeleteButton = (Button) rvServices.findViewById(R.id.delete_button);
 
     }
-
 
     // determines if fields are valid
     private boolean checkFieldValidity(String serviceName, String hourlyRate) {
@@ -147,10 +147,29 @@ public class ModifyServices extends AppCompatActivity{
                 Toast.makeText(this, "Service successfully created!", Toast.LENGTH_SHORT).show();
             }
             finish();
+            startActivity(getIntent());
         }
         else
         {
             Toast.makeText(this, "Service or hourly rate are not valid", Toast.LENGTH_LONG).show();
         }
+
     }
+    public void refresh(){
+        //finish();startActivity(getIntent());
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        /*ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
+                Pair.create(view1, "agreedName1"),
+                Pair.create(view2, "agreedName2"));
+        startActivity(getIntent(),
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        //getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);*/
+
+
+        //startActivityForResult(getIntent(), 0);
+    }
+
 }
