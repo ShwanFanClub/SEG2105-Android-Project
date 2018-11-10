@@ -1,6 +1,7 @@
 package com.segwumbo.www.wumbo;
 
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import org.junit.Test;
 import org.junit.Before;
@@ -23,15 +24,10 @@ public class ExampleUnitTest {
 
     @Test
     public void bothRight(){
-        TextView usernameField = loginActivity.findViewById(R.id.usernameEditText);
+        EditText usernameField = loginActivity.findViewById(R.id.usernameEditText);
         usernameField.setText("admin");
-        TextView passwordField = loginActivity.findViewById(R.id.passwordEditText);
+        EditText passwordField = loginActivity.findViewById(R.id.passwordEditText);
         passwordField.setText("admin");
         assertTrue(loginActivity.validUser(loginActivity.findViewById(R.id.usernameEditText).toString(), loginActivity.findViewById(R.id.passwordEditText).toString()));
     }
-
-    
-
-
-
 }
