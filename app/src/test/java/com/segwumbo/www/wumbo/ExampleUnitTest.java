@@ -16,7 +16,9 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+
 public class ExampleUnitTest {
+ /**
     private MainLoginActivity loginActivity;
 
     @Before
@@ -31,7 +33,7 @@ public class ExampleUnitTest {
         TextView passwordField = loginActivity.findViewById(R.id.passwordEditText);
         passwordField.setText("admin");
         assertTrue(loginActivity.validUser(loginActivity.findViewById(R.id.usernameEditText).toString(), loginActivity.findViewById(R.id.passwordEditText).toString()));
-    }
+    }*/
 
     
 
