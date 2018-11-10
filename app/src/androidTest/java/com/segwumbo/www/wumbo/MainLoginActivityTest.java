@@ -55,7 +55,7 @@ public class MainLoginActivityTest {
     // Test 2: Test to see if both Username and Password are blank
     @Test
     @UiThreadTest
-    public void testFailBothBlank()throws Exception{
+    public void testFailBothBlank() throws Exception{
         assertNotNull(mActivity.findViewById(R.id.usernameEditText));
         textUser = mActivity.findViewById(R.id.usernameEditText);
         textUser.setText("");
