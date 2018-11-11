@@ -1,14 +1,18 @@
 package com.segwumbo.www.wumbo;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.se.omapi.SEService;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import java.util.List;
 
 import static android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext;
 import static android.support.v4.content.ContextCompat.startActivity;
+import static android.text.TextUtils.isDigitsOnly;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder>  {
 
@@ -65,6 +70,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         public TextView ServiceName;
         public TextView ServiceCost;
         public Button DeleteButton;
+        public Button UpdateButton;
+        private String m_Text = "";
         private WeakReference<ClickListener> listenerRef;
 
         public ViewHolder(View itemView, ClickListener listener) {
@@ -74,10 +81,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             ServiceCost = (TextView) itemView.findViewById(R.id.service_cost);
             DeleteButton = (Button) itemView.findViewById(R.id.delete_button);
             DeleteButton.setOnClickListener(this);
+            UpdateButton = (Button) itemView.findViewById(R.id.update_button);
+            UpdateButton.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             if (v.getId() == DeleteButton.getId()) {
                 //Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition())+ " "+getItemCount(), Toast.LENGTH_SHORT).show();
 
@@ -117,6 +126,36 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
                 // stores user in database as a JSON object
                 databaseServices.child(id).setValue(newService);*/
+            }
+            if (v.getId() == UpdateButton.getId()){
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Update Pricing For: "+ mServices.get(getAdapterPosition()).getName());
+                final EditText input = new EditText(v.getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                builder.setView(input);
+
+                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        String temp = m_Text.replace(".","");
+                        if (isDigitsOnly(temp) && !temp.equals("")){
+                            databaseServices.child(mServices.get(getAdapterPosition()).getId()).child("hourlyRate").setValue(Double.parseDouble(m_Text));
+                            ((ModifyServices)v.getContext()).refresh();
+                        }
+                        else{
+                            Toast.makeText(v.getContext(), "Invalid Input",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
 
             }
 
