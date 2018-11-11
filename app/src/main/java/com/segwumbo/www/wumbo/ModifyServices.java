@@ -146,8 +146,8 @@ public class ModifyServices extends AppCompatActivity {
 
                 Toast.makeText(this, "Service successfully created!", Toast.LENGTH_SHORT).show();
             }
-            finish();
             startActivity(getIntent());
+            finish();
         }
         else
         {

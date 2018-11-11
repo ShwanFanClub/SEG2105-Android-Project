@@ -23,7 +23,7 @@ public class Service {
 
     public String getId(){
         return this.id;
-    }git
+    }
 
     public void setName(String name){
         this.name = name;
