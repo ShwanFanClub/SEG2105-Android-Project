@@ -58,7 +58,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         TextView sName = viewHolder.ServiceName;
         sName.setText(service.getName());
         TextView sCost = viewHolder.ServiceCost;
-        sCost.setText(String.valueOf(service.getHourlyRate()));
+        sCost.setText("$ "+String.valueOf(service.getHourlyRate()));
     }
 
     @Override
@@ -133,6 +133,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 builder.setTitle("Update Pricing For: "+ mServices.get(getAdapterPosition()).getName());
                 final EditText input = new EditText(v.getContext());
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+                input.setHint("$ "+String.valueOf(mServices.get(getAdapterPosition()).getHourlyRate()));
                 builder.setView(input);
 
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
