@@ -138,8 +138,8 @@ public class ModifyServices extends AppCompatActivity {
                 // generates unique primary key of the user
                 String id = databaseServices.push().getKey();
                 Service newService;
-
-                newService = new Service(id, serviceName, Double.parseDouble(hourlyRate));
+                Long am = Math.round(Double.parseDouble(hourlyRate)*100)/100;
+                newService = new Service(id, serviceName, am);
 
                 // stores user in database as a JSON object
                 databaseServices.child(id).setValue(newService);

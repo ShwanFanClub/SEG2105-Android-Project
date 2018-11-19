@@ -142,7 +142,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                         m_Text = input.getText().toString();
                         String temp = m_Text.replace(".","");
                         if (isDigitsOnly(temp) && !temp.equals("")){
-                            databaseServices.child(mServices.get(getAdapterPosition()).getId()).child("hourlyRate").setValue(Double.parseDouble(m_Text));
+                            double am = Math.round(Double.parseDouble(m_Text)*100)/100;
+                            databaseServices.child(mServices.get(getAdapterPosition()).getId()).child("hourlyRate").setValue(am);
                             ((ModifyServices)v.getContext()).refresh();
                         }
                         else{
