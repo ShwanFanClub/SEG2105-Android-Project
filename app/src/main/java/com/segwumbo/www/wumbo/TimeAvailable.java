@@ -10,4 +10,5 @@ public class TimeAvailable {
         this.endHour = endHour;
         this.endMin = endMin;
     }
+    public TimeAvailable(){}
 }

@@ -1,5 +1,6 @@
 package com.segwumbo.www.wumbo;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class ServiceProviderProfile {
@@ -14,7 +15,7 @@ public class ServiceProviderProfile {
     private String servicesOfferedString; // all services' keys as one long string separtated by one space
 
     private ArrayList<Service> servicesOffered;
-
+    ArrayList <TimeAvailable> sDays;
     public ServiceProviderProfile(){}
 
     public ServiceProviderProfile(String id, String userName, String address, String phoneNumber, String companyName,
@@ -26,6 +27,16 @@ public class ServiceProviderProfile {
         this.companyName = companyName;
         this.licensed = licensed;
         this.description = description;
+    }
+    public ServiceProviderProfile(ServiceProviderProfile p, ArrayList<TimeAvailable> times){
+        this.id = p.id;
+        this.userName = p.userName;
+        this.address = p.address;
+        this.phoneNumber = p.phoneNumber;
+        this.companyName = p.companyName;
+        this.licensed = p.licensed;
+        this.description = p.description;
+        this.sDays = times;
     }
 
     public void addService(Service s) { servicesOffered.add(s); }
@@ -89,6 +100,7 @@ public class ServiceProviderProfile {
     public String getServicesOfferedString() {
         return servicesOfferedString;
     }
+
     public void setServicesOfferedString(String servicesOfferedString) {
         this.servicesOfferedString = servicesOfferedString;
     }

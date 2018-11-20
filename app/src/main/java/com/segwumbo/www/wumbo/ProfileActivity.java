@@ -40,7 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
     boolean isLicensed;
     String profileID;
     String servicesOfferedString;
-
+    ArrayList<TimeAvailable> Days;
+    TextView timeSlot;
     @Override
     protected void onStart() {
         super.onStart();
@@ -80,6 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
             rvServices.setAdapter(sAdapter);
             rvServices.setLayoutManager(new LinearLayoutManager(this));
         }
+
     }
 
     @Override
@@ -103,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
         isLicensed = infoBundle.getBoolean("isLicensed");
         profileID = infoBundle.getString("profile ID");
         servicesOfferedString = infoBundle.getString("services offered");
-
+        timeSlot = findViewById(R.id.timeslots);
         populateFields();
     }
 
@@ -127,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
         CheckBox isLicensedCheckBox = findViewById(R.id.providerProfileIsLicensed);
         isLicensedCheckBox.setChecked(isLicensed);
 
-        TextView timeSlot = findViewById(R.id.timeslots);
+
     }
 
     public void retrieveServicesOffered(final String serviceKey){
@@ -158,6 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(editProfileIntent);
     }
     public void onUpdate(View view){
-        startActivity(new Intent(this, UpdateTime.class));
+        Intent updateTimeIntent = new Intent(this, UpdateTime.class);
+        updateTimeIntent.putExtra("bundle",infoBundle);
+        startActivity(updateTimeIntent);
     }
 }

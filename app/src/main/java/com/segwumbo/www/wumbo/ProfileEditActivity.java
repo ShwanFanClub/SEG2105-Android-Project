@@ -55,6 +55,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
+
+
         TextView userNameText = findViewById(R.id.providerProfileUsername);
         userNameText.setText(userName);
 
