@@ -7,6 +7,7 @@ public class UserAccount {
     private String password;
     private String email;
     private String role;
+    private ServiceProviderProfile profile;
 
     public UserAccount() {
         // Default constructor required for calls to DataSnapshot.getValue(UserAccount.class)
@@ -18,6 +19,15 @@ public class UserAccount {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public UserAccount(UserAccount account, ServiceProviderProfile profile){
+        this.id = account.getId();
+        this.username = account.getUsername();
+        this.password = account.getPassword();
+        this.email = account.getEmail();
+        this.role = account.getRole();
+        this.profile = profile;
     }
 
     public void setId(String id){
@@ -58,5 +68,13 @@ public class UserAccount {
 
     public String getRole(){
         return this.role;
+    }
+
+    public ServiceProviderProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ServiceProviderProfile profile) {
+        this.profile = profile;
     }
 }

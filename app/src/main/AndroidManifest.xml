@@ -19,6 +19,8 @@
         <activity android:name=".WelcomeScreen"></activity>
         <activity android:name=".CreateAccount"></activity>
         <activity android:name=".ModifyServices"></activity>
+        <activity android:name=".ProfileEditActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -64,21 +64,22 @@ public class MainLoginActivity extends AppCompatActivity {
         startActivity(createAccountIntent);
     }
 
-    public boolean validUser(String username, String password){
+    public UserAccount getUser(String username, String password){
 
         if(allUserAccounts == null){
-            return false;
+            return null;
         }
 
         for(UserAccount account: allUserAccounts){
 
             if(account.getUsername().equals(username) &&
                     account.getPassword().equals(password)){
-                return true;
+                return account;
             }
         }
-        return false;
+        return null;
     }
+
 
     // on button click, checks to see if account is valid
     public void OnLoginButton(View view){
@@ -94,16 +95,51 @@ public class MainLoginActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Please enter in a username & password", Toast.LENGTH_SHORT).show();
         }
-        else if(validUser(username, password)){
 
-            // changes to new screen
-            Intent loginIntent = new Intent(this, WelcomeScreen.class);
-            loginIntent.putExtra("username", username);
+        UserAccount user = getUser(username, password);
+        if(user!=null){
 
-            usernameText.setText("");
-            passwordText.setText("");
+            System.out.print(user.getRole());
+            //if user is a service provider, brings up provider profile screen
+            if (user.getRole().equals("service provider")) {
 
-            startActivity(loginIntent);
+                Intent loginIntent;
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                bundle.putString("userKey", user.getId());
+                //Check if user already has a profile
+                if (user.getProfile()!=null) {
+                    loginIntent = new Intent(this, ProfileActivity.class);
+
+                    bundle.putString("company", user.getProfile().getCompanyName());
+                    bundle.putString("phone number", user.getProfile().getPhoneNumber());
+                    bundle.putString("address", user.getProfile().getAddress());
+                    bundle.putString("description", user.getProfile().getDescription());
+                    bundle.putString("profile ID", user.getProfile().getId());
+                    bundle.putString("services offered", user.getProfile().getServicesOfferedString());
+                    bundle.putBoolean("isLicensed", user.getProfile().isLicensed());
+                }else{
+                    loginIntent = new Intent(this, ProfileEditActivity.class);
+
+                    bundle.putBoolean( "isEdit", false);
+                }
+
+                loginIntent.putExtra("bundle", bundle);
+
+                usernameText.setText("");
+                passwordText.setText("");
+
+                startActivity(loginIntent);
+            }else {
+                // changes to new screen
+                Intent loginIntent = new Intent(this, WelcomeScreen.class);
+                loginIntent.putExtra("username", username);
+
+                usernameText.setText("");
+                passwordText.setText("");
+
+                startActivity(loginIntent);
+            }
         }
         else{
 

@@ -33,6 +33,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     DatabaseReference databaseServices = FirebaseDatabase.getInstance().getReference("services");
     private final ClickListener listener;
     private List<Service> mServices = new ArrayList<>();
+    private ArrayList<ViewHolder> viewHolders = new ArrayList<>();
+
     public ServiceAdapter(List<Service> service, ClickListener listener) {
         for (int i = 0; i<service.size();i++){
             mServices.add(service.get(i));
@@ -49,6 +51,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView,listener);
+        viewHolders.add(viewHolder);
         return viewHolder;
     }
 
@@ -61,6 +64,11 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         sCost.setText("$ "+String.valueOf(service.getHourlyRate()));
     }
 
+    public void setAllUpdateInvisible(){
+        for(ViewHolder viewHolder : viewHolders){
+            viewHolder.setUpdateInvisible();
+        }
+    }
     @Override
     public int getItemCount() {
         return mServices.size();
@@ -84,6 +92,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             UpdateButton = (Button) itemView.findViewById(R.id.update_button);
             UpdateButton.setOnClickListener(this);
         }
+
+        public void setUpdateInvisible(){UpdateButton.setVisibility(View.INVISIBLE);}
 
         @Override
         public void onClick(final View v) {
