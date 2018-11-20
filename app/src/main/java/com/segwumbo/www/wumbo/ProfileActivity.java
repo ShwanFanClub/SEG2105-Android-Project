@@ -51,6 +51,14 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot user : dataSnapshot.getChildren()){
                     if (user.getKey().equals(userKey)){
                         userAccount = user.getValue(UserAccount.class);
+                        Days = userAccount.getProfile().sDays;
+                        String temp = "";
+                        if (Days != null && !Days.isEmpty()){
+                            for (int i=0;i<Days.size();i++){
+                                temp += Days.get(i).day +":\t"+Days.get(i).startHour+":"+Days.get(i).startMin+" to "+Days.get(i).endMin+":"+Days.get(i).endMin+"\n";
+                            }
+                        }
+                        timeSlot.setText(temp);
                         break;
                     }
                 }
@@ -81,6 +89,8 @@ public class ProfileActivity extends AppCompatActivity {
             rvServices.setAdapter(sAdapter);
             rvServices.setLayoutManager(new LinearLayoutManager(this));
         }
+        /**/
+
 
     }
 
@@ -164,4 +174,10 @@ public class ProfileActivity extends AppCompatActivity {
         updateTimeIntent.putExtra("bundle",infoBundle);
         startActivity(updateTimeIntent);
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onStart();
+    }
+
 }
