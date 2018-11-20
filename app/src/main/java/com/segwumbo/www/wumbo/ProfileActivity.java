@@ -126,6 +126,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         CheckBox isLicensedCheckBox = findViewById(R.id.providerProfileIsLicensed);
         isLicensedCheckBox.setChecked(isLicensed);
+
+        TextView timeSlot = findViewById(R.id.timeslots);
     }
 
     public void retrieveServicesOffered(final String serviceKey){

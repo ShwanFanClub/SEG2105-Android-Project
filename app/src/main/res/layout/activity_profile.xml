@@ -160,6 +160,11 @@
                 android:onClick="onUpdate"
                 android:text="Time Availability" />
 
+            <TextView
+                android:id="@+id/timeslots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />

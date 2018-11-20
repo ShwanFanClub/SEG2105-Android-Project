@@ -48,9 +48,17 @@ public class UpdateTime extends AppCompatActivity implements TimePickerDialog.On
             @Override
             public void onClick(View v) {
                 for (int i = 0; i<days.length;i++){
-                    if (days[i].isChecked() &&  (Integer.parseInt(text[i*2])!=Integer.parseInt(text[(i*2)+1]))){
-                        times.add(new TimeAvailable(days[i].getText().toString(), Integer.parseInt(text[i*2]), Integer.parseInt(text[(i*2)+1])));
+                    if (days[i].isChecked() &&  (Integer.parseInt(text[i*2].split(":")[0])!=
+                            Integer.parseInt(text[(i*2)+1].split(":")[0])) &&
+                            (Integer.parseInt(text[i*2].split(":")[1])!=
+                                    Integer.parseInt(text[(i*2)+1].split(":")[1]))){
+                        times.add(new TimeAvailable(days[i].getText().toString(),
+                                Integer.parseInt(text[i*2].split(":")[0]),
+                                Integer.parseInt(text[i*2].split(":")[1]),
+                                Integer.parseInt(text[(i*2)+1].split(":")[0]),
+                                Integer.parseInt(text[(i*2)+1].split(":")[1])));
                     }
+
                 }
                 finish();
             }
