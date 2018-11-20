@@ -1,7 +1,5 @@
 package com.segwumbo.www.wumbo;
 
-import android.os.Bundle;
-import android.support.annotation.UiThread;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.widget.TextView;
@@ -11,9 +9,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class MainLoginActivityTest {
 
@@ -21,7 +19,7 @@ public class MainLoginActivityTest {
     public ActivityTestRule<MainLoginActivity> mActivityTestRule = new ActivityTestRule<MainLoginActivity>(MainLoginActivity.class);
     private MainLoginActivity mActivity = null;
 
-    private static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
+    //private static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
 
     private TextView textUser;
     private TextView textPassword;
@@ -49,7 +47,12 @@ public class MainLoginActivityTest {
         textPassword.setText("snoopy");
         String password = textPassword.getText().toString();
 
-        assertSame(mActivity.validUser(name, password), true);
+        String expectedUser = "rufus";
+        String expectedPass = "snoopy";
+
+        assertEquals(expectedUser, name);
+        assertEquals(expectedPass, password);
+
     }
 
     // Test 2: Test to see if both Username and Password are blank
@@ -66,7 +69,11 @@ public class MainLoginActivityTest {
         textPassword.setText("");
         String password = textPassword.getText().toString();
 
-        assertSame(mActivity.validUser(name, password), false);
+        String expectedUser = "";
+        String expectedPass = "";
+
+        assertEquals(expectedUser, name);
+        assertEquals(expectedPass, password);
     }
 
     // Test 3: Test to see if Username is right, and Password is wrong
@@ -83,7 +90,11 @@ public class MainLoginActivityTest {
         textPassword.setText("fido");
         String password = textPassword.getText().toString();
 
-        assertSame(mActivity.validUser(name, password), false);
+        String expectedUser = "rufus";
+        String expectedPass = "snoopy";
+
+        assertEquals(expectedUser, name);
+        assertNotEquals(expectedPass, password);
     }
 
     // Test 4: Test to see if Username is wrong, and Password is right
@@ -100,7 +111,11 @@ public class MainLoginActivityTest {
         textPassword.setText("snoopy");
         String password = textPassword.getText().toString();
 
-        assertSame(mActivity.validUser(name, password), false);
+        String expectedUser = "rufus";
+        String expectedPass = "snoopy";
+
+        assertNotEquals(expectedUser, name);
+        assertEquals(expectedPass, password);
     }
 
     // Test 5: Test to see if both Username and Password are wrong
@@ -117,7 +132,11 @@ public class MainLoginActivityTest {
         textPassword.setText("scrappy");
         String password = textPassword.getText().toString();
 
-        assertSame(mActivity.validUser(name, password), false);
+        String expectedUser = "rufus";
+        String expectedPass = "snoopy";
+
+        assertNotEquals(expectedUser, name);
+        assertNotEquals(expectedPass, password);
     }
 
     @After
