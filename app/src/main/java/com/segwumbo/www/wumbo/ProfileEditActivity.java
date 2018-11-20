@@ -76,6 +76,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         userName = infoBundle.getString("username");
         userKey = infoBundle.getString("userKey");
+        isEdit = infoBundle.getBoolean("isEdit");
 
         if(isEdit) {
             company = infoBundle.getString("company");
@@ -84,6 +85,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             description = infoBundle.getString("description");
             isLicensed = infoBundle.getBoolean("isLicensed");
             profileID = infoBundle.getString("profile ID");
+
+            populateFields();
         }
     }
 
@@ -129,6 +132,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "Profile Created!", Toast.LENGTH_SHORT).show();
             }else{
+                infoBundle.putString("profile ID", profileID);
+
                 ServiceProviderProfile newProfile = new ServiceProviderProfile(profileID, userName, address, phoneNumber, company, isLicensed, description);
                 databaseProfile.child(profileID).setValue(newProfile);
 
@@ -156,19 +161,19 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
 
     public void populateFields(){
-        TextView companyNameText = findViewById(R.id.providerProfileCompany);
+        EditText companyNameText = findViewById(R.id.editTextProviderCompany);
         companyNameText.setText(company);
 
-        TextView phoneNumberText = findViewById(R.id.providerProfilePhoneNumber);
+        EditText phoneNumberText = findViewById(R.id.editTextProviderPhone);
         phoneNumberText.setText(phoneNumber);
 
-        TextView addressText = findViewById(R.id.providerProfileAddress);
+        EditText addressText = findViewById(R.id.editTextProviderAddress);
         addressText.setText(address);
 
-        TextView descriptionText = findViewById(R.id.providerProfileDescription);
+        EditText descriptionText = findViewById(R.id.editTextProviderDescription);
         descriptionText.setText(description);
 
-        CheckBox isLicensedCheckBox = findViewById(R.id.providerProfileIsLicensed);
+        CheckBox isLicensedCheckBox = findViewById(R.id.isLicensed);
         isLicensedCheckBox.setChecked(isLicensed);
     }
 
