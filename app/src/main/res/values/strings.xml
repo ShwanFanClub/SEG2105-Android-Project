@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wumbo</string>
+    <string name="togglebutton">ToggleButton</string>
 </resources>

@@ -155,4 +155,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         startActivity(editProfileIntent);
     }
+    public void onUpdate(View view){
+        startActivity(new Intent(this, UpdateTime.class));
+    }
 }

@@ -98,21 +98,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         @Override
         public void onClick(final View v) {
             if (v.getId() == DeleteButton.getId()) {
-                //Toast.makeText(v.getContext(), "ITEM PRESSED = " + String.valueOf(getAdapterPosition())+ " "+getItemCount(), Toast.LENGTH_SHORT).show();
-
-
-                /*
-                DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
-                serviceToDelete.removeValue();
-                mServices.remove(getAdapterPosition());
-                ArrayList<Service> clone = new ArrayList<>();
-                while (!mServices.isEmpty()){
-                    clone.add();
-                    mServices.remove(0);
-                }
-                mServices.clear();
-                mServices.addAll(clone);
-                notifyDataSetChanged();*/
                 DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
                 Service temp = mServices.get(getAdapterPosition());
                 mServices.remove(getAdapterPosition());
@@ -126,16 +111,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 notifyDataSetChanged();
                 serviceToDelete.removeValue();
                 ((ModifyServices)v.getContext()).refresh();
-                //for (int i = 0; i<(clone.size()+1);i++){
-                //    DatabaseReference serviceToDelete = databaseServices.child(mServices.get(getAdapterPosition()).getId());
 
-                /*String id = databaseServices.push().getKey();
-                Service newService;
-
-                newService = new Service(id, serviceName, Double.parseDouble(hourlyRate));
-
-                // stores user in database as a JSON object
-                databaseServices.child(id).setValue(newService);*/
             }
             if (v.getId() == UpdateButton.getId()){
 
@@ -152,7 +128,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                         m_Text = input.getText().toString();
                         String temp = m_Text.replace(".","");
                         if (isDigitsOnly(temp) && !temp.equals("")){
-                            double am = Math.round(Double.parseDouble(m_Text)*100)/100;
+                            double am = (Double.parseDouble(m_Text));
                             databaseServices.child(mServices.get(getAdapterPosition()).getId()).child("hourlyRate").setValue(am);
                             ((ModifyServices)v.getContext()).refresh();
                         }

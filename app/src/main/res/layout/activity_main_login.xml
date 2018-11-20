@@ -70,5 +70,6 @@
             android:layout_height="wrap_content"
             android:onClick="OnCreateAccountButton"
             android:text="Create an account" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
