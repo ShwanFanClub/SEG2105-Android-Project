@@ -161,9 +161,20 @@
                 android:text="Time Availability" />
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="schedule"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="18sp" />
+
+            <TextView
                 android:id="@+id/timeslots"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textStyle="italic" />
 
             <Space
                 android:layout_width="match_parent"
