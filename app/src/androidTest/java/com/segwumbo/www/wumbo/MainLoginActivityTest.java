@@ -10,8 +10,10 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class MainLoginActivityTest {
 
@@ -19,17 +21,12 @@ public class MainLoginActivityTest {
     public ActivityTestRule<MainLoginActivity> mActivityTestRule = new ActivityTestRule<MainLoginActivity>(MainLoginActivity.class);
     private MainLoginActivity mActivity = null;
 
-    //private static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
-
     private TextView textUser;
     private TextView textPassword;
 
     @Before
     public void setUp() throws Exception {
         mActivity = mActivityTestRule.getActivity();
-
-        UserAccount acc1 = new UserAccount("abcde/", "hello.world@gmail.com", "rufus", "snoopy", "sponge");
-        MainLoginActivity.allUserAccounts.add(acc1);
 
     }
 
@@ -50,8 +47,7 @@ public class MainLoginActivityTest {
         String expectedUser = "rufus";
         String expectedPass = "snoopy";
 
-        assertEquals(expectedUser, name);
-        assertEquals(expectedPass, password);
+        assertTrue((expectedUser.equals(name)) && (expectedPass.equals(password)));
 
     }
 
@@ -72,8 +68,7 @@ public class MainLoginActivityTest {
         String expectedUser = "";
         String expectedPass = "";
 
-        assertEquals(expectedUser, name);
-        assertEquals(expectedPass, password);
+        assertTrue((expectedUser.equals(name)) && (expectedPass.equals(password)));
     }
 
     // Test 3: Test to see if Username is right, and Password is wrong
@@ -135,8 +130,7 @@ public class MainLoginActivityTest {
         String expectedUser = "rufus";
         String expectedPass = "snoopy";
 
-        assertNotEquals(expectedUser, name);
-        assertNotEquals(expectedPass, password);
+        assertFalse((expectedUser.equals(name)) && (expectedPass.equals(password)));
     }
 
     @After

@@ -158,7 +158,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     }
 
-    public boolean checkMandatoryFieldsValid(String company, String phoneNumber, String address){
+    public static boolean checkMandatoryFieldsValid(String company, String phoneNumber, String address){
         return !(company.equals("") || phoneNumber.equals("") || address.equals(""));
     }
 
