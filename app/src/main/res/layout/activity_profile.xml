@@ -166,14 +166,16 @@
                 android:layout_height="wrap_content"
                 android:text="schedule"
                 android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textSize="18sp" />
+                android:textAllCaps="false"
+                android:textSize="22sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/timeslots"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
+                android:textAllCaps="false"
                 android:textStyle="italic" />
 
             <Space

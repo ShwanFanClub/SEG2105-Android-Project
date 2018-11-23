@@ -55,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
                         String temp = "";
                         if (Days != null && !Days.isEmpty()){
                             for (int i=0;i<Days.size();i++){
-                                temp += Days.get(i).day +":\t"+Days.get(i).startHour+":"+Days.get(i).startMin+" to "+Days.get(i).endHour+":"+Days.get(i).endMin+"\n";
+                                temp += Days.get(i).day +":\t\t"+Days.get(i).startHour+":"+Days.get(i).startMin+" to "+Days.get(i).endHour+":"+Days.get(i).endMin+"\n";
                             }
                         }
                         timeSlot.setText(temp);
