@@ -59,25 +59,19 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                         timeSlot.setText(temp);
-                        break;
-                    }
 
-                    if (servicesOffered != null) {
+                        servicesOffered = userAccount.getProfile().getServicesOffered();
 
-                        for (DataSnapshot userServices : dataSnapshot.getChildren()) {
-                            if (userServices.getKey().equals(userKey)) {
-                                GenericTypeIndicator<ArrayList<Service>> t = new GenericTypeIndicator<ArrayList<Service>>() {
-                                };
-                                servicesOffered = userServices.getValue(t);
-                            }
+                        if (servicesOffered != null && !servicesOffered.isEmpty()) {
+
+                            ServiceAdapter sAdapter = new ServiceAdapter(servicesOffered, new ClickListener() {
+                                @Override
+                                public void onPositionClicked(int position) {
+                                }
+                            }, 1);
+                            sAdapter.setAllUpdateInvisible();
+                            rvServices.setAdapter(sAdapter);
                         }
-                        ServiceAdapter sAdapter = new ServiceAdapter(servicesOffered, new ClickListener() {
-                            @Override
-                            public void onPositionClicked(int position) {
-                            }
-                        }, 2);
-                        sAdapter.setAllUpdateInvisible();
-                        rvServices.setAdapter(sAdapter);
                     }
                 }
             }
@@ -183,24 +177,10 @@ public class ProfileActivity extends AppCompatActivity {
         onStart();
     }
 
-    public void onAddServicesClick(View view){
+    public void onEditServicesClick(View view){
         Intent addServices = new Intent(this, AvailableServices.class);
         addServices.putExtra("bundle",infoBundle);
         startActivity(addServices);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if(resultCode == AvailableServices.RESULT_OK){
-                ArrayList<Service> addedServices = (ArrayList<Service>)data.getSerializableExtra("added services");
-
-                for(Service addedService: addedServices){
-                    servicesOffered.add(addedService);
-                }
-            }
-        }
-    }//onActivityResult
 
 }

@@ -46,7 +46,7 @@ public class ModifyServices extends AppCompatActivity {
                     ServiceAdapter sAdapter = new ServiceAdapter(allServices, new ClickListener() {
                         @Override
                         public void onPositionClicked(int position) {}
-                    }, 2);
+                    }, 1);
                     rvServices.setAdapter(sAdapter);
                 }
             }
@@ -66,7 +66,7 @@ public class ModifyServices extends AppCompatActivity {
         setContentView(R.layout.activity_create_service);
         // gets the reference of the database
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
-        //rvServices = (RecyclerView) findViewById(R.id.recycle_services);
+        rvServices = (RecyclerView) findViewById(R.id.recycle_services);
         DeleteButton = (Button) rvServices.findViewById(R.id.delete_button);
 
     }

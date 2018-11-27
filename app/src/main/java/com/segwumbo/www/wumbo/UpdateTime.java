@@ -42,7 +42,6 @@ public class UpdateTime extends AppCompatActivity implements TimePickerDialog.On
     String description;
     Boolean isLicensed;
     String profileID;
-    ArrayList<Service> servicesOffered;
     @Override
     protected void onStart() {
         super.onStart();
@@ -111,14 +110,7 @@ public class UpdateTime extends AppCompatActivity implements TimePickerDialog.On
                     }
 
                 }
-                ServiceProviderProfile sProfile = new ServiceProviderProfile(profileID, userName, address, phoneNumber, company,isLicensed, description);
-                //TimeAvailable[] t = new TimeAvailable[times.size()];
-                //for (int i = 0; i<times.size();i++){
-                //    t[i] = times.get(i);
-                //}
-                ServiceProviderProfile sP = new ServiceProviderProfile(sProfile,times);
-                userAccount = new UserAccount(userAccount,sP);
-                databaseUsers.child(userKey).setValue(userAccount);
+                databaseUsers.child(userKey).child("profile").child("sDays").setValue(times);
                 finish();
             }
         });

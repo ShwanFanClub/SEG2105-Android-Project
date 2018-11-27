@@ -121,6 +121,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 infoBundle.putString("profile ID", id);
 
                 ServiceProviderProfile newProfile = new ServiceProviderProfile(id, userName, address, phoneNumber, company, isLicensed, description);
+                assert id != null;
                 databaseProfile.child(id).setValue(newProfile);
 
                 UserAccount userAccountWithProfile = new UserAccount(userAccount, newProfile);

@@ -43,6 +43,32 @@
             android:layout_height="wrap_content"
             android:onClick="OnCreateServiceButtonClick"
             android:text="Create New Service" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:id="@+id/userLists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="(Displays username/name)"
+            android:text="List of Users"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/registeredUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="(Displays role)"
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -3,8 +3,6 @@ package com.segwumbo.www.wumbo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.se.omapi.SEService;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -32,6 +30,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
     private int viewType;
     private DatabaseReference databaseServices = FirebaseDatabase.getInstance().getReference("services");
+    private DatabaseReference databaseUsers= FirebaseDatabase.getInstance().getReference("users");
     private final ClickListener listener;
     private List<Service> mServices = new ArrayList<>();
     private ArrayList<ViewHolder> viewHolders = new ArrayList<>();
@@ -86,6 +85,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             viewHolder.setUpdateInvisible();
         }
     }
+
     @Override
     public int getItemCount() {
         return mServices.size();
@@ -94,7 +94,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView ServiceName;
         public TextView ServiceCost;
-        public Button DeleteButton, UpdateButton, AddButton;
+        public Button DeleteButton, UpdateButton, AddButton, RemoveButton;
         private String m_Text = "";
         private WeakReference<ClickListener> listenerRef;
 
@@ -173,12 +173,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
             }
             else{
-                if(v.getId() == AddButton.getId()){
-
+                if(true){
                     AvailableServices.addService(mServices.get(getAdapterPosition()));
                     AddButton.setVisibility(View.INVISIBLE);
                     Toast.makeText(v.getContext(), "Service added!",Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    AvailableServices.addService(mServices.get(getAdapterPosition()));
+                }
+
+
             }
         }
     }

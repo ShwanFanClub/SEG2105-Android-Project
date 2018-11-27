@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.view.View;
-import android.content.Intent;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -112,6 +112,11 @@ public class AvailableServices extends AppCompatActivity {
         servicesToAdd.add(service);
     }
 
+    static void removeService(Service service){
+
+        servicesToAdd.remove(service);
+    }
+
     public void onClickUpdate(View view){
 
         for(Service s: servicesToAdd){
@@ -121,7 +126,8 @@ public class AvailableServices extends AppCompatActivity {
         ServiceProviderProfile sProfile = new ServiceProviderProfile(profileID, userName, address, phoneNumber, company,isLicensed, description);
         ServiceProviderProfile sP = new ServiceProviderProfile(sProfile, servicesToAdd, servicesNames);
         userAccount = new UserAccount(userAccount,sP);
-        databaseUsers.child(userKey).setValue(userAccount);
+        databaseUsers.child(userKey).child("profile").child("servicesOffered").setValue(servicesToAdd);
+        Toast.makeText(this, "Services Saved!", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

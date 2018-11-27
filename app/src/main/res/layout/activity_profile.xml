@@ -21,6 +21,16 @@
                 android:layout_height="20dp" />
 
             <TextView
+                android:id="@+id/welcomeMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="(Displays provider company)"
+                android:text="Welcome to Wumbo"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="italic" />
+
+            <TextView
                 android:id="@+id/providerProfileUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:hint="(Displays provider company)"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -92,6 +102,10 @@
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="7.5dp" />
+
             <TextView
                 android:id="@+id/providerProfilePhoneNumber"
                 android:layout_width="match_parent"
@@ -99,6 +113,7 @@
                 android:layout_marginLeft="15px"
                 android:layout_marginRight="15px"
                 android:hint="(Displays phone number)"
+                android:textAlignment="textStart"
                 android:textSize="16sp" />
 
             <Space
@@ -116,6 +131,10 @@
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="7.5dp" />
+
             <TextView
                 android:id="@+id/providerProfileAddress"
                 android:layout_width="match_parent"
@@ -123,6 +142,7 @@
                 android:layout_marginLeft="15px"
                 android:layout_marginRight="15px"
                 android:hint="(Displays address)"
+                android:textAlignment="textStart"
                 android:textSize="16sp" />
 
             <Space
@@ -136,8 +156,13 @@
                 android:layout_marginLeft="15px"
                 android:layout_marginRight="15px"
                 android:text="About"
+                android:textAlignment="textStart"
                 android:textSize="19sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="7.5dp" />
 
             <TextView
                 android:id="@+id/providerProfileDescription"
@@ -211,14 +236,14 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/addService"
+                    android:id="@+id/editService"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginRight="15px"
                     android:layout_weight="1"
-                    android:onClick="onAddServicesClick"
-                    android:text="Add Services"
+                    android:onClick="onEditServicesClick"
+                    android:text="Edit Services"
                     android:textAlignment="center" />
             </LinearLayout>
 
