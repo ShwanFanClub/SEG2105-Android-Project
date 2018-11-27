@@ -17,23 +17,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfileEditActivity extends AppCompatActivity {
 
     DatabaseReference databaseProfile;
     DatabaseReference databaseUsers;
-    boolean isEdit;
+    private boolean isEdit, isLicensed;
 
-    String userKey;
-    UserAccount userAccount;
-
+    private String userKey, company, userName, phoneNumber, address, description, profileID;
+    private UserAccount userAccount;
+    private ArrayList<Service> servicesOffered;
     Bundle infoBundle;
-    String userName;
-    String company;
-    String phoneNumber;
-    String address;
-    String description;
-    boolean isLicensed;
-    String profileID;
 
     protected void onStart() {
         super.onStart();
@@ -54,8 +49,6 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         TextView userNameText = findViewById(R.id.providerProfileUsername);
         userNameText.setText(userName);
@@ -79,6 +72,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         userName = infoBundle.getString("username");
         userKey = infoBundle.getString("userKey");
         isEdit = infoBundle.getBoolean("isEdit");
+
 
         if(isEdit) {
             company = infoBundle.getString("company");

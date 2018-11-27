@@ -8,6 +8,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="10dp">
 
@@ -41,23 +42,14 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/update_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Update" />
-
-        <Button
-            android:id="@+id/delete_button"
+            android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:gravity="center|start"
-            android:onClick="OnDeleteClick"
-            android:text="Delete"
 
+            android:text="Add Service"
             android:textAlignment="center"
-            android:textAllCaps="true"
             android:textColor="@android:color/black"
             tools:layout_editor_absoluteX="280dp"
             tools:layout_editor_absoluteY="16dp" />

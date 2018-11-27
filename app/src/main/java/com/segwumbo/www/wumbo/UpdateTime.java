@@ -42,7 +42,7 @@ public class UpdateTime extends AppCompatActivity implements TimePickerDialog.On
     String description;
     Boolean isLicensed;
     String profileID;
-    String servicesOfferedString;
+    ArrayList<Service> servicesOffered;
     @Override
     protected void onStart() {
         super.onStart();
@@ -78,7 +78,6 @@ public class UpdateTime extends AppCompatActivity implements TimePickerDialog.On
         description = infoBundle.getString("description");
         isLicensed = infoBundle.getBoolean("isLicensed");
         profileID = infoBundle.getString("profile ID");
-        servicesOfferedString = infoBundle.getString("services offered");
         Update = (Button) findViewById(R.id.update);
         for (int i = 0; i<daysID.length;i++){
             days[i] = (Switch) findViewById(daysID[i]);

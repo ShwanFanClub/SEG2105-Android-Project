@@ -18,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModifyServices extends AppCompatActivity {
 
@@ -27,8 +26,8 @@ public class ModifyServices extends AppCompatActivity {
     DatabaseReference databaseServices;
     Button DeleteButton;
     RecyclerView rvServices;
-    @Override
 
+    @Override
     protected void onStart() {
 
         super.onStart();
@@ -46,9 +45,8 @@ public class ModifyServices extends AppCompatActivity {
                     }
                     ServiceAdapter sAdapter = new ServiceAdapter(allServices, new ClickListener() {
                         @Override
-                        public void onPositionClicked(int position) {
-                        }
-                    });
+                        public void onPositionClicked(int position) {}
+                    }, 2);
                     rvServices.setAdapter(sAdapter);
                 }
             }
@@ -68,7 +66,7 @@ public class ModifyServices extends AppCompatActivity {
         setContentView(R.layout.activity_create_service);
         // gets the reference of the database
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
-        rvServices = (RecyclerView) findViewById(R.id.recycle_services);
+        //rvServices = (RecyclerView) findViewById(R.id.recycle_services);
         DeleteButton = (Button) rvServices.findViewById(R.id.delete_button);
 
     }
@@ -156,20 +154,10 @@ public class ModifyServices extends AppCompatActivity {
 
     }
     public void refresh(){
-        //finish();startActivity(getIntent());
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
-        /*ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
-                Pair.create(view1, "agreedName1"),
-                Pair.create(view2, "agreedName2"));
-        startActivity(getIntent(),
-                ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        //getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);*/
-
-
-        //startActivityForResult(getIntent(), 0);
     }
 
 }

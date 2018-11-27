@@ -118,7 +118,6 @@ public class MainLoginActivity extends AppCompatActivity {
                     bundle.putString("address", user.getProfile().getAddress());
                     bundle.putString("description", user.getProfile().getDescription());
                     bundle.putString("profile ID", user.getProfile().getId());
-                    bundle.putString("services offered", user.getProfile().getServicesOfferedString());
                     bundle.putBoolean("isLicensed", user.getProfile().isLicensed());
                 }else{
                     loginIntent = new Intent(this, ProfileEditActivity.class);

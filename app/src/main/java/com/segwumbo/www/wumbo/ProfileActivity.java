@@ -2,14 +2,11 @@ package com.segwumbo.www.wumbo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -17,15 +14,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
-    ArrayList<Service> servicesOffered = new ArrayList<Service>();
     DatabaseReference databaseServices;
     DatabaseReference databaseProfiles;
     DatabaseReference databaseUsers;
+    DatabaseError databaseError;
     RecyclerView rvServices;
 
     String userKey;
@@ -39,27 +37,47 @@ public class ProfileActivity extends AppCompatActivity {
     String description;
     boolean isLicensed;
     String profileID;
-    String servicesOfferedString;
+    ArrayList<Service> servicesOffered;
     ArrayList<TimeAvailable> Days;
     TextView timeSlot;
+
+
     @Override
     protected void onStart() {
         super.onStart();
         databaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot user : dataSnapshot.getChildren()){
-                    if (user.getKey().equals(userKey)){
+                for (DataSnapshot user : dataSnapshot.getChildren()) {
+                    if (user.getKey().equals(userKey)) {
                         userAccount = user.getValue(UserAccount.class);
                         Days = userAccount.getProfile().sDays;
                         String temp = "";
-                        if (Days != null && !Days.isEmpty()){
-                            for (int i=0;i<Days.size();i++){
-                                temp += Days.get(i).day +":\t\t"+Days.get(i).startHour+":"+Days.get(i).startMin+" to "+Days.get(i).endHour+":"+Days.get(i).endMin+"\n";
+                        if (Days != null && !Days.isEmpty()) {
+                            for (int i = 0; i < Days.size(); i++) {
+                                temp += Days.get(i).day + ":\t\t" + Days.get(i).startHour + ":" + Days.get(i).startMin + " to " + Days.get(i).endHour + ":" + Days.get(i).endMin + "\n";
                             }
                         }
                         timeSlot.setText(temp);
                         break;
+                    }
+
+                    if (servicesOffered != null) {
+
+                        for (DataSnapshot userServices : dataSnapshot.getChildren()) {
+                            if (userServices.getKey().equals(userKey)) {
+                                GenericTypeIndicator<ArrayList<Service>> t = new GenericTypeIndicator<ArrayList<Service>>() {
+                                };
+                                servicesOffered = userServices.getValue(t);
+                            }
+                        }
+                        ServiceAdapter sAdapter = new ServiceAdapter(servicesOffered, new ClickListener() {
+                            @Override
+                            public void onPositionClicked(int position) {
+                            }
+                        }, 2);
+                        sAdapter.setAllUpdateInvisible();
+                        rvServices.setAdapter(sAdapter);
                     }
                 }
             }
@@ -69,26 +87,11 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        rvServices.setLayoutManager(new LinearLayoutManager(this));
 
         populateFields();
 
-        if (servicesOfferedString !=null && !servicesOffered.equals("")) {
-            String[] servicesOfferedStrArray = servicesOfferedString.split(" ");
 
-            for (String serviceKey : servicesOfferedStrArray) {
-                retrieveServicesOffered(serviceKey);
-            }
-
-            rvServices = (RecyclerView) findViewById(R.id.providerProfileServicesRecyclerView);
-            ServiceAdapter sAdapter = new ServiceAdapter(servicesOffered, new ClickListener() {
-                @Override
-                public void onPositionClicked(int position) {
-                }
-            });
-            sAdapter.setAllUpdateInvisible();
-            rvServices.setAdapter(sAdapter);
-            rvServices.setLayoutManager(new LinearLayoutManager(this));
-        }
         /**/
 
 
@@ -114,7 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
         description = infoBundle.getString("description");
         isLicensed = infoBundle.getBoolean("isLicensed");
         profileID = infoBundle.getString("profile ID");
-        servicesOfferedString = infoBundle.getString("services offered");
+        rvServices = findViewById(R.id.providerProfileServicesRecyclerView);
         timeSlot = findViewById(R.id.timeslots);
         populateFields();
     }
@@ -179,5 +182,25 @@ public class ProfileActivity extends AppCompatActivity {
         super.onRestart();
         onStart();
     }
+
+    public void onAddServicesClick(View view){
+        Intent addServices = new Intent(this, AvailableServices.class);
+        addServices.putExtra("bundle",infoBundle);
+        startActivity(addServices);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == AvailableServices.RESULT_OK){
+                ArrayList<Service> addedServices = (ArrayList<Service>)data.getSerializableExtra("added services");
+
+                for(Service addedService: addedServices){
+                    servicesOffered.add(addedService);
+                }
+            }
+        }
+    }//onActivityResult
 
 }

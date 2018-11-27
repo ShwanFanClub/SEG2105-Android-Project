@@ -74,6 +74,12 @@ public class CreateAccount extends AppCompatActivity {
         return false;
     }
 
+    private String encrypt(String password){
+        String encryptedString = null;
+
+        return encryptedString;
+    }
+
     public void OnCreateAccountClick(View view){
 
         EditText usernameText = findViewById(R.id.usernameCreateText);

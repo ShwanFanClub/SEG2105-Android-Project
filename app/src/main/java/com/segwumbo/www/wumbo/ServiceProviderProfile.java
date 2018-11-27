@@ -1,6 +1,7 @@
 package com.segwumbo.www.wumbo;
 
-import java.security.PublicKey;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class ServiceProviderProfile {
@@ -12,10 +13,10 @@ public class ServiceProviderProfile {
     private String companyName;
     private boolean licensed;
     private String description;
-    private String servicesOfferedString; // all services' keys as one long string separtated by one space
-
+    private ArrayList<String> servicesOfferedString; // all services' keys as one long string separtated by one space
     private ArrayList<Service> servicesOffered;
     ArrayList <TimeAvailable> sDays;
+
     public ServiceProviderProfile(){}
 
     public ServiceProviderProfile(String id, String userName, String address, String phoneNumber, String companyName,
@@ -27,6 +28,7 @@ public class ServiceProviderProfile {
         this.companyName = companyName;
         this.licensed = licensed;
         this.description = description;
+
     }
     public ServiceProviderProfile(ServiceProviderProfile p, ArrayList<TimeAvailable> times){
         this.id = p.id;
@@ -36,12 +38,30 @@ public class ServiceProviderProfile {
         this.companyName = p.companyName;
         this.licensed = p.licensed;
         this.description = p.description;
+        this.servicesOffered = p.servicesOffered;
         this.sDays = times;
+    }
+
+    public ServiceProviderProfile(ServiceProviderProfile p, ArrayList<Service> services, ArrayList<String> servicesOfferedString){
+        this.id = p.id;
+        this.userName = p.userName;
+        this.address = p.address;
+        this.phoneNumber = p.phoneNumber;
+        this.companyName = p.companyName;
+        this.licensed = p.licensed;
+        this.description = p.description;
+        this.sDays = p.sDays;
+        this.servicesOffered = services;
+        this.servicesOfferedString = servicesOfferedString;
     }
 
     public void addService(Service s) { servicesOffered.add(s); }
     public void removeService (int i) { servicesOffered.remove(i); }
     public void removeService (Service s) { servicesOffered.remove(s); }
+
+    public void setServicesOffered(ArrayList<Service> servicesOffered){
+        this.servicesOffered = servicesOffered;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -58,7 +78,7 @@ public class ServiceProviderProfile {
     }
 
     public ArrayList<Service> getServicesOffered() {
-        return servicesOffered;
+        return this.servicesOffered;
     }
     public Service getService(int i){ return servicesOffered.get(i); }
 
@@ -97,11 +117,11 @@ public class ServiceProviderProfile {
         return description;
     }
 
-    public String getServicesOfferedString() {
+    public ArrayList<String> getServicesOfferedString() {
         return servicesOfferedString;
     }
 
-    public void setServicesOfferedString(String servicesOfferedString) {
+    public void setServicesOfferedString(ArrayList<String> servicesOfferedString) {
         this.servicesOfferedString = servicesOfferedString;
     }
 }
