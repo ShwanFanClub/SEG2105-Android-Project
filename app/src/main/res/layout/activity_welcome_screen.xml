@@ -14,7 +14,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="100px" />
+            android:layout_height="75dp" />
 
         <TextView
             android:id="@+id/welcomeUser"
@@ -39,10 +39,12 @@
 
         <Button
             android:id="@+id/serviceCreate"
-            android:layout_width="200dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/ovalbutton"
             android:onClick="OnCreateServiceButtonClick"
-            android:text="Create New Service" />
+            android:text="Create New Service"
+            android:textColor="#FFF" />
 
         <Space
             android:layout_width="match_parent"

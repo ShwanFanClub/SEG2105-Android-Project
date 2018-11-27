@@ -67,14 +67,16 @@
 
                 <Button
                     android:id="@+id/saveProfileButton"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginRight="15px"
                     android:layout_weight="1"
+                    android:background="@drawable/ovalbutton"
                     android:onClick="OnCreateSaveProfileClick"
                     android:text="Save Profile"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFF" />
             </LinearLayout>
 
             <Space

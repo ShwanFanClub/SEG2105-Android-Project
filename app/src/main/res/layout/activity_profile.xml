@@ -18,7 +18,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                android:layout_height="50dp" />
 
             <TextView
                 android:id="@+id/welcomeMessage"
@@ -37,7 +37,7 @@
                 android:hint="(Displays username)"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textSize="30sp"
+                android:textSize="35sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -77,11 +77,13 @@
 
                 <Button
                     android:id="@+id/providerProfileEditProfileButton"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginRight="15px"
                     android:layout_weight="1"
+                    android:background="@drawable/ovalbutton"
+                    android:textColor="#FFF"
                     android:onClick="OnCreateEditProfileButtonClick"
                     android:text="Edit Profile"
                     android:textAlignment="center" />
@@ -180,10 +182,12 @@
 
             <Button
                 android:id="@+id/providerTimeAvailabilityButton"
-                android:layout_width="wrap_content"
+                android:layout_width="225dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ovalbutton"
                 android:onClick="onUpdate"
-                android:text="Time Availability" />
+                android:text="Time Availability"
+                android:textColor="#FFF" />
 
             <TextView
                 android:id="@+id/textView"
@@ -220,7 +224,7 @@
 
                 <TextView
                     android:id="@+id/providerProfileServicesLabel3"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginRight="15px"
@@ -237,14 +241,16 @@
 
                 <Button
                     android:id="@+id/editService"
-                    android:layout_width="70dp"
+                    android:layout_width="115dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:layout_marginRight="15px"
                     android:layout_weight="1"
+                    android:background="@drawable/ovalbutton"
                     android:onClick="onEditServicesClick"
                     android:text="Edit Services"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#FFF" />
             </LinearLayout>
 
             <Space

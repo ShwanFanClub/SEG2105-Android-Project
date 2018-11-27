@@ -31,6 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -560,9 +561,11 @@
 
                 <Button
                     android:id="@+id/update"
-                    android:layout_width="match_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:text="Update" />
+                    android:background="@drawable/ovalbutton"
+                    android:text="Update"
+                    android:textColor="#FFF" />
 
             </LinearLayout>
         </ScrollView>

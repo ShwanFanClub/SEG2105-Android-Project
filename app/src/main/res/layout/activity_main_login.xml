@@ -57,8 +57,10 @@
             android:id="@+id/loginButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/ovalbutton"
             android:onClick="OnLoginButton"
-            android:text="login" />
+            android:text="login"
+            android:textColor="#FFF" />
 
         <Space
             android:layout_width="match_parent"
@@ -69,6 +71,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:onClick="OnCreateAccountButton"
+            android:background="@drawable/ovalbutton"
+            android:textColor="#FFF"
             android:text="Create an account" />
 
     </LinearLayout>

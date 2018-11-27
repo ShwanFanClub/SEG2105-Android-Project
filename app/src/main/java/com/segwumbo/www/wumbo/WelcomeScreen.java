@@ -31,11 +31,13 @@ public class WelcomeScreen extends AppCompatActivity {
                 numberOfUsers = 0;
                 String temp = "";
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
-                    numberOfUsers++;
                     userAccount = user.getValue(UserAccount.class);
 
-                    assert userAccount != null;
-                    temp += numberOfUsers + ". " + userAccount.getUsername() + "\n";
+                    if(!userAccount.getUsername().equals("admin")){
+                        numberOfUsers++;
+                        assert userAccount != null;
+                        temp += numberOfUsers + ". " + userAccount.getUsername() + "\n";
+                    }
                 }
                 userList.setText(temp);
             }

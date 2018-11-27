@@ -14,16 +14,17 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="25dp" />
 
         <TextView
-            android:id="@+id/Title"
-            android:layout_width="match_parent"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Available Services"
+            android:text="AVAILABLE SERVICES"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textSize="37sp"
             android:textStyle="bold" />
 
         <Space
@@ -33,17 +34,20 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/availableServices"
             android:layout_width="match_parent"
-            android:layout_height="409dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:layout_marginBottom="10dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            tools:itemCount="21" />
 
         <Button
             android:id="@+id/UpdateServices"
-            android:layout_width="300dp"
-            android:layout_height="65dp"
+            android:layout_width="250dp"
+            android:layout_height="55dp"
+            android:background="@drawable/ovalbutton"
+            android:textColor="#FFF"
             android:onClick="onClickUpdate"
-            android:text="Update" />
+            android:text="Update"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
