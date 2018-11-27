@@ -28,6 +28,7 @@ public class WelcomeScreen extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                numberOfUsers = 0;
                 String temp = "";
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
                     numberOfUsers++;
@@ -50,7 +51,6 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
         Bundle bundle = getIntent().getExtras();
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
-        numberOfUsers = 0;
 
         //Get user's name from firebase
         String userName = bundle.getString("username");
