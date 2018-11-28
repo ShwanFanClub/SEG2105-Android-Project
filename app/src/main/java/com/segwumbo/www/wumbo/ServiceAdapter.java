@@ -199,7 +199,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
             }
             else if(viewType == 2){
-                EditServices.addService(mServices.get(getAdapterPosition()));
+                AvailableServices.addService(mServices.get(getAdapterPosition()));
                 AddButton.setVisibility(View.GONE);
                 Toast.makeText(v.getContext(), "Service added!",Toast.LENGTH_SHORT).show();
             }

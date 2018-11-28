@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class WelcomeScreen extends AppCompatActivity {
+public class WelcomeAdmin extends AppCompatActivity {
     private DatabaseReference databaseUsers;
     private int numberOfUsers;
     private UserAccount userAccount;

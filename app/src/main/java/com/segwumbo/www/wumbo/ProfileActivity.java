@@ -158,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void onEditServicesClick(View view){
-        Intent addServices = new Intent(this, EditServices.class);
+        Intent addServices = new Intent(this, AvailableServices.class);
         addServices.putExtra("bundle",infoBundle);
         startActivity(addServices);
     }

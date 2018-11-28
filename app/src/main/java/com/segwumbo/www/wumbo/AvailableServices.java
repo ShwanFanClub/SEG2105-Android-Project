@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class EditServices extends AppCompatActivity {
+public class AvailableServices extends AppCompatActivity {
     private DatabaseReference databaseUsers;
     private DatabaseReference databaseServices;
 

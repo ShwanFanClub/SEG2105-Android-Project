@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
 import android.widget.Toast;
@@ -131,9 +130,28 @@ public class MainLoginActivity extends AppCompatActivity {
                 passwordText.setText("");
 
                 startActivity(loginIntent);
-            }else {
-                // changes to new screen
-                Intent loginIntent = new Intent(this, WelcomeScreen.class);
+            }
+
+            // If user is a customer, switch to home owner screen
+            if (user.getRole().equals("home owner")) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("username", username);
+                bundle.putString("userKey", user.getId());
+
+                Intent loginIntent = new Intent(this, WelcomeCustomer.class);
+                loginIntent.putExtra("username", username);
+
+                usernameText.setText("");
+                passwordText.setText("");
+
+                startActivity(loginIntent);
+
+            }
+
+            if (user.getRole().equals("admin")){
+                // Changes to admin screen
+                Intent loginIntent = new Intent(this, WelcomeAdmin.class);
                 loginIntent.putExtra("username", username);
 
                 usernameText.setText("");
