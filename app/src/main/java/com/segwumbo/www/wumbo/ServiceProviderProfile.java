@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class ServiceProviderProfile {
 
-    private String id;
     private String userName;
     private String address;
     private String phoneNumber;
@@ -19,9 +18,8 @@ public class ServiceProviderProfile {
 
     public ServiceProviderProfile(){}
 
-    public ServiceProviderProfile(String id, String userName, String address, String phoneNumber, String companyName,
+    public ServiceProviderProfile(String userName, String address, String phoneNumber, String companyName,
                                   boolean licensed, String description){
-        this.id = id;
         this.userName = userName;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -31,7 +29,6 @@ public class ServiceProviderProfile {
 
     }
     public ServiceProviderProfile(ServiceProviderProfile p, ArrayList<TimeAvailable> times){
-        this.id = p.id;
         this.userName = p.userName;
         this.address = p.address;
         this.phoneNumber = p.phoneNumber;
@@ -43,7 +40,6 @@ public class ServiceProviderProfile {
     }
 
     public ServiceProviderProfile(ServiceProviderProfile p, ArrayList<Service> services, ArrayList<String> servicesOfferedString){
-        this.id = p.id;
         this.userName = p.userName;
         this.address = p.address;
         this.phoneNumber = p.phoneNumber;
@@ -63,12 +59,6 @@ public class ServiceProviderProfile {
         this.servicesOffered = servicesOffered;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getId() {
-        return id;
-    }
 
     public void setUser(String user) {
         this.userName = user;

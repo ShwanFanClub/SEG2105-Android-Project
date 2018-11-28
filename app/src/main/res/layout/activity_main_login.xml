@@ -64,7 +64,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="25px" />
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/createAccountButton"

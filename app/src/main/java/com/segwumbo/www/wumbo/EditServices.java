@@ -17,20 +17,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AvailableServices extends AppCompatActivity {
+public class EditServices extends AppCompatActivity {
+    private DatabaseReference databaseUsers;
+    private DatabaseReference databaseServices;
 
-    ArrayList<Service> allServices = new ArrayList<Service>();
-    static ArrayList<Service> servicesToAdd = new ArrayList<>();
-    DatabaseReference databaseServices;
-    Button AddButton;
-    RecyclerView rvServices;
-    DatabaseReference databaseUsers;
-    String userKey;
-    UserAccount userAccount;
-    Bundle infoBundle;
-    String userName, company, phoneNumber, address, description, profileID;
-    Boolean isLicensed;
-    ArrayList<String> servicesNames;
+    private ArrayList<Service> allServices, currentServices, combined;
+    private static ArrayList<Service> servicesToAdd, servicesToRemove;
+
+    private RecyclerView rvServices;
+    private UserAccount userAccount;
+    private Bundle infoBundle;
+    private int viewChangeIndex;
+    private String userName, company, phoneNumber, address, description, userKey;
+    private Boolean isLicensed;
 
     @Override
     protected void onStart() {
@@ -42,7 +41,10 @@ public class AvailableServices extends AppCompatActivity {
                 for (DataSnapshot user : dataSnapshot.getChildren()){
                     if (user.getKey().equals(userKey)){
                         userAccount = user.getValue(UserAccount.class);
-                        break;
+                        ArrayList<Service> tempService = userAccount.getProfile().getServicesOffered();
+                        if(tempService != null && !tempService.isEmpty()) {
+                            currentServices.addAll(tempService);
+                        }
                     }
                 }
             }
@@ -58,15 +60,33 @@ public class AvailableServices extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (allServices != null) {
-
+                    viewChangeIndex = 0;
+                    boolean currentServiceBool;
                     // getting all user account data from firebase
                     for (DataSnapshot serviceSnapshot : dataSnapshot.getChildren()) {
                         Service service = serviceSnapshot.getValue(Service.class);
-                        allServices.add(service);
+                        currentServiceBool = false;
+
+                        if(!currentServices.isEmpty()) {
+                            for (Service currentService : currentServices) {
+                                if (currentService.getName().equals(service.getName())) {
+                                    currentServiceBool = true;
+                                    break;
+                                }
+                            }
+                            if(!currentServiceBool){
+                                allServices.add(service);
+                            }
+                        }
+                        else{
+                            allServices.add(service);
+                        }
                     }
-                    ServiceAdapter sAdapter = new ServiceAdapter( allServices, new ClickListener() {
+
+
+                    ServiceAdapter sAdapter = new ServiceAdapter(allServices, new ClickListener() {
                         @Override
-                        public void onPositionClicked(int position) {}
+                        public void onPositionClicked(int position) { }
                     }, 2);
                     rvServices.setAdapter(sAdapter);
                 }
@@ -90,7 +110,9 @@ public class AvailableServices extends AppCompatActivity {
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         rvServices = findViewById(R.id.availableServices);
-        AddButton = rvServices.findViewById(R.id.add_button);
+        allServices = new ArrayList<Service>();
+        currentServices = new ArrayList<Service>();
+        servicesToAdd = new ArrayList<>();
 
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         Bundle bundle = getIntent().getExtras();
@@ -102,31 +124,21 @@ public class AvailableServices extends AppCompatActivity {
         address = infoBundle.getString("address");
         description = infoBundle.getString("description");
         isLicensed = infoBundle.getBoolean("isLicensed");
-        profileID = infoBundle.getString("profile ID");
-        servicesNames = new ArrayList<>();
-
     }
 
     static void addService(Service service){
-
         servicesToAdd.add(service);
-    }
-
-    static void removeService(Service service){
-
-        servicesToAdd.remove(service);
     }
 
     public void onClickUpdate(View view){
 
-        for(Service s: servicesToAdd){
-            servicesNames.add(s.getName());
+        if(servicesToRemove != null && !servicesToRemove.isEmpty()){
+            for(Service s: servicesToRemove){
+                currentServices.remove(s);
+            }
         }
-
-        ServiceProviderProfile sProfile = new ServiceProviderProfile(profileID, userName, address, phoneNumber, company,isLicensed, description);
-        ServiceProviderProfile sP = new ServiceProviderProfile(sProfile, servicesToAdd, servicesNames);
-        userAccount = new UserAccount(userAccount,sP);
-        databaseUsers.child(userKey).child("profile").child("servicesOffered").setValue(servicesToAdd);
+        currentServices.addAll(servicesToAdd);
+        databaseUsers.child(userKey).child("profile").child("servicesOffered").setValue(currentServices);
         Toast.makeText(this, "Services Saved!", Toast.LENGTH_SHORT).show();
         finish();
     }

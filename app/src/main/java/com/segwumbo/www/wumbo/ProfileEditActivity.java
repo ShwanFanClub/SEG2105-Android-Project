@@ -21,14 +21,12 @@ import java.util.ArrayList;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
-    DatabaseReference databaseProfile;
-    DatabaseReference databaseUsers;
+    private DatabaseReference databaseUsers;
     private boolean isEdit, isLicensed;
 
     private String userKey, company, userName, phoneNumber, address, description, profileID;
     private UserAccount userAccount;
-    private ArrayList<Service> servicesOffered;
-    Bundle infoBundle;
+    private Bundle infoBundle;
 
     protected void onStart() {
         super.onStart();
@@ -46,7 +44,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
 
@@ -63,7 +61,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        databaseProfile = FirebaseDatabase.getInstance().getReference("profiles");
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         Bundle bundle = getIntent().getExtras();
@@ -71,8 +68,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         userName = infoBundle.getString("username");
         userKey = infoBundle.getString("userKey");
-        isEdit = infoBundle.getBoolean("isEdit");
-
+        isEdit = bundle.getBoolean("isEdit");
 
         if(isEdit) {
             company = infoBundle.getString("company");
@@ -81,7 +77,6 @@ public class ProfileEditActivity extends AppCompatActivity {
             description = infoBundle.getString("description");
             isLicensed = infoBundle.getBoolean("isLicensed");
             profileID = infoBundle.getString("profile ID");
-
             populateFields();
         }
     }
@@ -93,7 +88,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         EditText addressText = findViewById(R.id.editTextProviderAddress);
         EditText descriptionText = findViewById(R.id.editTextProviderDescription);
         TextView userNameText = findViewById(R.id.providerProfileUsername);
-
 
         boolean isLicensed = ((CheckBox)findViewById(R.id.isLicensed)).isChecked();
         String company = companyText.getText().toString().trim();
@@ -113,44 +107,32 @@ public class ProfileEditActivity extends AppCompatActivity {
         infoBundle.putBoolean("isLicensed", isLicensed);
 
         if (checkMandatoryFieldsValid(company, phoneNumber, address)) {
-
             if(!isEdit){
                 // generates unique primary key of the user
-                String id = databaseProfile.push().getKey();
 
-                infoBundle.putString("profile ID", id);
-
-                ServiceProviderProfile newProfile = new ServiceProviderProfile(id, userName, address, phoneNumber, company, isLicensed, description);
-                assert id != null;
-                databaseProfile.child(id).setValue(newProfile);
+                ServiceProviderProfile newProfile = new ServiceProviderProfile(userName, address, phoneNumber, company, isLicensed, description);
 
                 UserAccount userAccountWithProfile = new UserAccount(userAccount, newProfile);
                 databaseUsers.child(userKey).setValue(userAccountWithProfile);
 
                 Toast.makeText(this, "Profile Created!", Toast.LENGTH_SHORT).show();
-            }else{
-                infoBundle.putString("profile ID", profileID);
 
-                ServiceProviderProfile newProfile = new ServiceProviderProfile(profileID, userName, address, phoneNumber, company, isLicensed, description);
-                databaseProfile.child(profileID).setValue(newProfile);
+                Intent saveProfileIntent = new Intent(this, ProfileActivity.class);
+                saveProfileIntent.putExtra("bundle", infoBundle);
 
-                UserAccount userAccountWithProfile = new UserAccount(userAccount, newProfile);
-                databaseUsers.child(userKey).setValue(userAccountWithProfile);
-
+                startActivity(saveProfileIntent);
+            }
+            else{
+                databaseUsers.child(userKey).child("profile").child("address").setValue(address);
+                databaseUsers.child(userKey).child("profile").child("companyName").setValue(company);
+                databaseUsers.child(userKey).child("profile").child("description").setValue(description);
+                databaseUsers.child(userKey).child("profile").child("licensed").setValue(isLicensed);
+                databaseUsers.child(userKey).child("profile").child("phoneNumber").setValue(phoneNumber);
                 Toast.makeText(this, "Profile Saved!", Toast.LENGTH_SHORT).show();
             }
-
-            Intent saveProfileIntent = new Intent(this, ProfileActivity.class);
-            saveProfileIntent.putExtra("bundle", infoBundle);
-
-            startActivity(saveProfileIntent);
             finish();
         }
-        else
-        {
-            Toast.makeText(this, "Required Field Have Not Been Completed", Toast.LENGTH_LONG).show();
-        }
-
+        else { Toast.makeText(this, "Required Field Have Not Been Completed", Toast.LENGTH_LONG).show(); }
     }
 
     public static boolean checkMandatoryFieldsValid(String company, String phoneNumber, String address){

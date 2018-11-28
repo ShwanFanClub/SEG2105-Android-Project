@@ -14,33 +14,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
-    DatabaseReference databaseServices;
-    DatabaseReference databaseProfiles;
-    DatabaseReference databaseUsers;
-    DatabaseError databaseError;
-    RecyclerView rvServices;
+    private DatabaseReference databaseServices;
+    private static DatabaseReference databaseUsers;
+    private static RecyclerView rvServices;
 
-    String userKey;
-    UserAccount userAccount;
+    private UserAccount userAccount;
 
-    Bundle infoBundle;
-    String userName;
-    String company;
-    String phoneNumber;
-    String address;
-    String description;
-    boolean isLicensed;
-    String profileID;
-    ArrayList<Service> servicesOffered;
-    ArrayList<TimeAvailable> Days;
-    TextView timeSlot;
-
+    private static Bundle infoBundle;
+    private String userName, company, phoneNumber, address, description;
+    private static String userKey;
+    private boolean isLicensed;
+    private static ArrayList<Service> servicesOffered;
+    private ArrayList<TimeAvailable> Days;
+    private TextView timeSlot, userNameText, companyNameText, phoneNumberText, descriptionText, addressText;
+    private CheckBox isLicensedCheckBox;
 
     @Override
     protected void onStart() {
@@ -63,41 +55,54 @@ public class ProfileActivity extends AppCompatActivity {
                         servicesOffered = userAccount.getProfile().getServicesOffered();
 
                         if (servicesOffered != null && !servicesOffered.isEmpty()) {
+                            rvServices.setVisibility(View.VISIBLE);
 
                             ServiceAdapter sAdapter = new ServiceAdapter(servicesOffered, new ClickListener() {
                                 @Override
                                 public void onPositionClicked(int position) {
                                 }
-                            }, 1);
+                            }, 3);
                             sAdapter.setAllUpdateInvisible();
                             rvServices.setAdapter(sAdapter);
                         }
+
+                        //Update variable values
+                        company = userAccount.getProfile().getCompanyName();
+                        phoneNumber = userAccount.getProfile().getPhoneNumber();
+                        address = userAccount.getProfile().getAddress();
+                        description = userAccount.getProfile().getDescription();
+                        isLicensed = userAccount.getProfile().isLicensed();
+
+                        //Update information text-boxes
+                        companyNameText.setText(company);
+                        phoneNumberText.setText(userAccount.getProfile().getPhoneNumber());
+                        addressText.setText(userAccount.getProfile().getAddress());
+                        descriptionText.setText(userAccount.getProfile().getDescription());
+                        isLicensedCheckBox.setChecked(userAccount.getProfile().isLicensed());
                     }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
         rvServices.setLayoutManager(new LinearLayoutManager(this));
-
-        populateFields();
-
-
-        /**/
-
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        userNameText = findViewById(R.id.providerProfileUsername);
+        companyNameText = findViewById(R.id.providerProfileCompany);
+        phoneNumberText = findViewById(R.id.providerProfilePhoneNumber);
+        addressText = findViewById(R.id.providerProfileAddress);
+        descriptionText = findViewById(R.id.providerProfileDescription);
+        isLicensedCheckBox = findViewById(R.id.providerProfileIsLicensed);
 
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
-        databaseProfiles = FirebaseDatabase.getInstance().getReference("profiles");
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         Bundle bundle = getIntent().getExtras();
@@ -110,67 +115,42 @@ public class ProfileActivity extends AppCompatActivity {
         address = infoBundle.getString("address");
         description = infoBundle.getString("description");
         isLicensed = infoBundle.getBoolean("isLicensed");
-        profileID = infoBundle.getString("profile ID");
         rvServices = findViewById(R.id.providerProfileServicesRecyclerView);
         timeSlot = findViewById(R.id.timeslots);
-        populateFields();
+        populateFields(userName, company, address, phoneNumber, description, isLicensed);
     }
 
-    public void populateFields(){
+    private void populateFields(String username, String company, String address, String phoneNumber, String description, boolean licensed){
         // Getting and setting all text views
-        TextView userNameText = findViewById(R.id.providerProfileUsername);
-        userNameText.setText(userName);
-
-        TextView companyNameText = findViewById(R.id.providerProfileCompany);
+        userNameText.setText(username);
         companyNameText.setText(company);
-
-        TextView phoneNumberText = findViewById(R.id.providerProfilePhoneNumber);
         phoneNumberText.setText(phoneNumber);
-
-        TextView addressText = findViewById(R.id.providerProfileAddress);
         addressText.setText(address);
-
-        TextView descriptionText = findViewById(R.id.providerProfileDescription);
         descriptionText.setText(description);
-
-        CheckBox isLicensedCheckBox = findViewById(R.id.providerProfileIsLicensed);
-        isLicensedCheckBox.setChecked(isLicensed);
-
-
-    }
-
-    public void retrieveServicesOffered(final String serviceKey){
-        databaseServices.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot service : dataSnapshot.getChildren()){
-                    if (service.getKey().equals(serviceKey)){
-                        servicesOffered.add(service.getValue(Service.class));
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        isLicensedCheckBox.setChecked(licensed);
     }
 
     public void OnCreateEditProfileButtonClick(View view){
         Intent editProfileIntent = new Intent(this, ProfileEditActivity.class);
+
+        infoBundle.putString("company", company);
+        infoBundle.putString("phone number", phoneNumber);
+        infoBundle.putString("address", address);
+        infoBundle.putString("description", description);
+        infoBundle.putBoolean("isLicensed", isLicensed);
 
         editProfileIntent.putExtra("isEdit", true);
         editProfileIntent.putExtra("bundle", infoBundle);
 
         startActivity(editProfileIntent);
     }
+
     public void onUpdate(View view){
         Intent updateTimeIntent = new Intent(this, UpdateTime.class);
         updateTimeIntent.putExtra("bundle",infoBundle);
         startActivity(updateTimeIntent);
     }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -178,9 +158,16 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void onEditServicesClick(View view){
-        Intent addServices = new Intent(this, AvailableServices.class);
+        Intent addServices = new Intent(this, EditServices.class);
         addServices.putExtra("bundle",infoBundle);
         startActivity(addServices);
     }
 
+    public static void removeService(Service service, int position){
+        servicesOffered.remove(service);
+        databaseUsers.child(userKey).child("profile").child("servicesOffered").setValue(servicesOffered);
+        if(servicesOffered.size() == 0){
+            rvServices.setVisibility(View.GONE);
+        }
+    }
 }

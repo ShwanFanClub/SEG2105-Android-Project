@@ -22,7 +22,7 @@
         <activity android:name=".ProfileEditActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UpdateTime" />
-        <activity android:name=".AvailableServices"></activity>
+        <activity android:name=".EditServices" ></activity>
     </application>
 
 </manifest>

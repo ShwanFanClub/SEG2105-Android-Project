@@ -19,16 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext;
-import static android.support.v4.content.ContextCompat.startActivity;
 import static android.text.TextUtils.isDigitsOnly;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder>  {
 
-    private int viewType;
+    private int viewType, viewPositionChange;
     private DatabaseReference databaseServices = FirebaseDatabase.getInstance().getReference("services");
     private DatabaseReference databaseUsers= FirebaseDatabase.getInstance().getReference("users");
     private final ClickListener listener;
@@ -40,6 +37,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         this.listener = listener;
         this.viewType = viewType;
     }
+
     @Override
     public @NonNull ServiceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(this.viewType == 1){
@@ -58,10 +56,35 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
             // Inflate the custom layout
-            View contactView = inflater.inflate(R.layout.add_service_custom_row_layout, parent, false);
+            View contactView = inflater.inflate(R.layout.addservice_custom_row_layout, parent, false);
 
             // Return a new holder instance
             ViewHolder viewHolder = new ViewHolder(contactView, listener, 2);
+            viewHolders.add(viewHolder);
+            return viewHolder;
+        }
+        else if(this.viewType == 3){
+
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+            // Inflate the custom layout
+            View contactView = inflater.inflate(R.layout.removeservice_custom_row_layout, parent, false);
+
+            // Return a new holder instance
+            ViewHolder viewHolder = new ViewHolder(contactView, listener, 3);
+            viewHolders.add(viewHolder);
+            return viewHolder;
+        }
+
+        else if(this.viewType == 4){
+
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+            // Inflate the custom layout
+            View contactView = inflater.inflate(R.layout.plain_custom_row_layout, parent, false);
+
+            // Return a new holder instance
+            ViewHolder viewHolder = new ViewHolder(contactView, listener, 4);
             viewHolders.add(viewHolder);
             return viewHolder;
         }
@@ -101,19 +124,22 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         public ViewHolder(View itemView, ClickListener listener, int viewType) {
             super(itemView);
             listenerRef = new WeakReference<>(listener);
-            ServiceName = (TextView) itemView.findViewById(R.id.service_name);
-            ServiceCost = (TextView) itemView.findViewById(R.id.service_cost);
+            ServiceName = itemView.findViewById(R.id.service_name);
+            ServiceCost = itemView.findViewById(R.id.service_cost);
 
             if(viewType == 1){
-                DeleteButton = (Button) itemView.findViewById(R.id.delete_button);
+                DeleteButton = itemView.findViewById(R.id.delete_button);
                 DeleteButton.setOnClickListener(this);
-                UpdateButton = (Button) itemView.findViewById(R.id.update_button);
+                UpdateButton = itemView.findViewById(R.id.update_button);
                 UpdateButton.setOnClickListener(this);
-
             }
-            else{
-                AddButton = (Button) itemView.findViewById(R.id.add_button);
+            else if(viewType == 2){
+                AddButton = itemView.findViewById(R.id.add_button);
                 AddButton.setOnClickListener(this);
+            }
+            else if(viewType == 3){
+                RemoveButton = itemView.findViewById(R.id.remove_button);
+                RemoveButton.setOnClickListener(this);
             }
         }
 
@@ -172,17 +198,15 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 }
 
             }
-            else{
-                if(true){
-                    AvailableServices.addService(mServices.get(getAdapterPosition()));
-                    AddButton.setVisibility(View.INVISIBLE);
-                    Toast.makeText(v.getContext(), "Service added!",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    AvailableServices.addService(mServices.get(getAdapterPosition()));
-                }
-
-
+            else if(viewType == 2){
+                EditServices.addService(mServices.get(getAdapterPosition()));
+                AddButton.setVisibility(View.GONE);
+                Toast.makeText(v.getContext(), "Service added!",Toast.LENGTH_SHORT).show();
+            }
+            else if(viewType == 3){
+                ProfileActivity.removeService(mServices.get(getAdapterPosition()), getAdapterPosition());
+                RemoveButton.setVisibility(View.GONE);
+                Toast.makeText(v.getContext(), "Service removed!",Toast.LENGTH_SHORT).show();
             }
         }
     }

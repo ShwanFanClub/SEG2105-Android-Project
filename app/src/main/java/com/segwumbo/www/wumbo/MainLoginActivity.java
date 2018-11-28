@@ -1,5 +1,6 @@
 package com.segwumbo.www.wumbo;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -43,7 +44,7 @@ public class MainLoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
@@ -117,7 +118,6 @@ public class MainLoginActivity extends AppCompatActivity {
                     bundle.putString("phone number", user.getProfile().getPhoneNumber());
                     bundle.putString("address", user.getProfile().getAddress());
                     bundle.putString("description", user.getProfile().getDescription());
-                    bundle.putString("profile ID", user.getProfile().getId());
                     bundle.putBoolean("isLicensed", user.getProfile().isLicensed());
                 }else{
                     loginIntent = new Intent(this, ProfileEditActivity.class);
