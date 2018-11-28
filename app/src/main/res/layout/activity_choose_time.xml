@@ -567,6 +567,10 @@
                     android:text="Update"
                     android:textColor="#FFF" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+
             </LinearLayout>
         </ScrollView>
 

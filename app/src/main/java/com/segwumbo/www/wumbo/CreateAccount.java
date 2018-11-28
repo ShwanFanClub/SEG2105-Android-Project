@@ -124,8 +124,8 @@ public class CreateAccount extends AppCompatActivity {
                 finish();
             }
         }else{
-            Toast.makeText(this, "Username must be "+ String.valueOf(usernameLength)+" characters long, " +
-                    "Password must be " + String.valueOf(passwordLength)+ " characters long", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Username must be at least "+ String.valueOf(usernameLength)+" characters long, " +
+                    "Password must be at least" + String.valueOf(passwordLength)+ " characters long", Toast.LENGTH_LONG).show();
         }
     }
 }

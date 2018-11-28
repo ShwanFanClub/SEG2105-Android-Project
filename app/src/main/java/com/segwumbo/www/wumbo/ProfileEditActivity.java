@@ -17,14 +17,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class ProfileEditActivity extends AppCompatActivity {
 
     private DatabaseReference databaseUsers;
     private boolean isEdit, isLicensed;
 
-    private String userKey, company, userName, phoneNumber, address, description, profileID;
+    private String userKey, company, userName, phoneNumber, address, description;
     private UserAccount userAccount;
     private Bundle infoBundle;
 
@@ -72,11 +70,10 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         if(isEdit) {
             company = infoBundle.getString("company");
-            phoneNumber = infoBundle.getString("phone number");
+            phoneNumber = infoBundle.getString("phone number").replaceAll("-", "");
             address = infoBundle.getString("address");
             description = infoBundle.getString("description");
             isLicensed = infoBundle.getBoolean("isLicensed");
-            profileID = infoBundle.getString("profile ID");
             populateFields();
         }
     }
@@ -91,10 +88,30 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         boolean isLicensed = ((CheckBox)findViewById(R.id.isLicensed)).isChecked();
         String company = companyText.getText().toString().trim();
-        String phoneNumber = phoneNumberText.getText().toString().trim();
         String address = addressText.getText().toString().trim();
         String description = descriptionText.getText().toString();
         String userName = userNameText.getText().toString();
+        String phoneNumber = phoneNumberText.getText().toString().trim();
+
+        int phoneNumberLength = phoneNumber.length();
+
+        switch(phoneNumberLength){
+            case 10: phoneNumber = phoneNumber.substring(0,3) + "-"
+                    + phoneNumber.substring(3,6) + "-" + phoneNumber.substring(6);
+                    break;
+
+            case 11: phoneNumber = phoneNumber.substring(0,1) + "-" + phoneNumber.substring(1,4) + "-"
+                    + phoneNumber.substring(4,7) + "-" + phoneNumber.substring(7);
+                    break;
+
+            case 12: phoneNumber = phoneNumber.substring(0,2) + "-" + phoneNumber.substring(2,5) + "-"
+                    + phoneNumber.substring(5,8) + "-" + phoneNumber.substring(8);
+                    break;
+
+            case 13: phoneNumber = phoneNumber.substring(0,3) + "-" + phoneNumber.substring(3,6) + "-"
+                    + phoneNumber.substring(6,9) + "-" + phoneNumber.substring(9);
+                    break;
+        }
 
         infoBundle.clear();
 
@@ -106,7 +123,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         infoBundle.putString("description", description);
         infoBundle.putBoolean("isLicensed", isLicensed);
 
-        if (checkMandatoryFieldsValid(company, phoneNumber, address)) {
+        if (checkMandatoryFieldsValid(company, phoneNumber, address) && phoneNumber.replaceAll("-","").length() >= 10) {
             if(!isEdit){
                 // generates unique primary key of the user
 
@@ -132,6 +149,9 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
             finish();
         }
+        else if(phoneNumber.replaceAll("-","").length() < 10){
+            Toast.makeText(this, "Phone number must be at least 10 digits long", Toast.LENGTH_LONG).show();
+        }
         else { Toast.makeText(this, "Required Field Have Not Been Completed", Toast.LENGTH_LONG).show(); }
     }
 
@@ -155,5 +175,4 @@ public class ProfileEditActivity extends AppCompatActivity {
         CheckBox isLicensedCheckBox = findViewById(R.id.isLicensed);
         isLicensedCheckBox.setChecked(isLicensed);
     }
-
 }

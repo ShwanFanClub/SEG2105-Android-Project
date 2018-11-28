@@ -1,7 +1,5 @@
 package com.segwumbo.www.wumbo;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -159,5 +157,4 @@ public class ModifyServices extends AppCompatActivity {
         startActivity(getIntent());
         overridePendingTransition(0, 0);
     }
-
 }
