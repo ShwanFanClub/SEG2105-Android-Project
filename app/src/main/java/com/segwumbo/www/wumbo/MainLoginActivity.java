@@ -56,9 +56,31 @@ public class MainLoginActivity extends AppCompatActivity {
 
         // gets the reference of the database
         databaseUserAccounts = FirebaseDatabase.getInstance().getReference("users");
-
     }
 
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        databaseUserAccounts.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                allUserAccounts.clear();
+
+                // getting all user account data from firebase
+                for(DataSnapshot userAccountSnapshot: dataSnapshot.getChildren()){
+                    UserAccount account = userAccountSnapshot.getValue(UserAccount.class);
+                    allUserAccounts.add(account);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
 
     // on button click, goes to the create account page
     public void OnCreateAccountButton(View view){
@@ -67,10 +89,7 @@ public class MainLoginActivity extends AppCompatActivity {
     }
 
     public UserAccount getUser(String username, String password){
-
-        if(allUserAccounts == null){
-            return null;
-        }
+        if(allUserAccounts == null){ return null; }
 
         for(UserAccount account: allUserAccounts){
 
@@ -81,7 +100,6 @@ public class MainLoginActivity extends AppCompatActivity {
         }
         return null;
     }
-
 
     // on button click, checks to see if account is valid
     public void OnLoginButton(View view){
@@ -109,8 +127,9 @@ public class MainLoginActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("username", username);
                 bundle.putString("userKey", user.getId());
+                boolean isEdit = (user.getProfile() == null);
                 //Check if user already has a profile
-                if (user.getProfile()!=null) {
+                if (!isEdit) {
                     loginIntent = new Intent(this, ProfileActivity.class);
 
                     bundle.putString("company", user.getProfile().getCompanyName());
@@ -121,7 +140,7 @@ public class MainLoginActivity extends AppCompatActivity {
                 }else{
                     loginIntent = new Intent(this, ProfileEditActivity.class);
 
-                    bundle.putBoolean( "isEdit", false);
+                    bundle.putBoolean( "isEdit", isEdit);
                 }
 
                 loginIntent.putExtra("bundle", bundle);
@@ -161,7 +180,6 @@ public class MainLoginActivity extends AppCompatActivity {
             }
         }
         else{
-
             Toast.makeText(this, "No Account Found", Toast.LENGTH_SHORT).show();
             passwordText.setText("");
         }

@@ -64,8 +64,8 @@ public class ModifyServices extends AppCompatActivity {
         setContentView(R.layout.activity_create_service);
         // gets the reference of the database
         databaseServices = FirebaseDatabase.getInstance().getReference("services");
-        rvServices = (RecyclerView) findViewById(R.id.recycle_services);
-        DeleteButton = (Button) rvServices.findViewById(R.id.delete_button);
+        rvServices = findViewById(R.id.recycle_services);
+        DeleteButton = rvServices.findViewById(R.id.delete_button);
 
     }
 
@@ -145,8 +145,7 @@ public class ModifyServices extends AppCompatActivity {
             startActivity(getIntent());
             finish();
         }
-        else
-        {
+        else {
             Toast.makeText(this, "Service or hourly rate are not valid", Toast.LENGTH_LONG).show();
         }
 
