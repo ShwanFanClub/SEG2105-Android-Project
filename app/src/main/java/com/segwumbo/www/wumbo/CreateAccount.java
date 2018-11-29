@@ -13,8 +13,9 @@ import android.widget.Spinner;
 
 public class CreateAccount extends AppCompatActivity {
 
-    private final int usernameLength = 1;
-    private final int passwordLength = 2;
+    private final int USERNAMELENGTH = 1;
+    private final int PASSWORDLENGTH = 2;
+    private final String[] ENCRYPTCODE = new String[]{"0","i","ß","3","ω","f","Σ","ö","#","É"};
     private DatabaseReference database;
     private Spinner dropdown;
     private String[] items;
@@ -41,7 +42,7 @@ public class CreateAccount extends AppCompatActivity {
     // makes sure fields are of certain length
     private boolean checkFieldValidity(String email, String username, String password, String role){
 
-        return !(username.length() < usernameLength||password.length() < passwordLength||email == null);
+        return !(username.length() < USERNAMELENGTH||password.length() < PASSWORDLENGTH||email == null);
     }
 
     // check to see if username already exists
@@ -75,9 +76,19 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     private String encrypt(String password){
-        String encryptedString = null;
+        String encrypted = "";
+        byte[] bytes = password.getBytes();
 
-        return encryptedString;
+        for(byte b: bytes){
+            Byte byteInt = b;
+
+            encrypted += Integer.toHexString(byteInt);
+
+        }
+        for(int i = 1; i < ENCRYPTCODE.length; i++){
+            encrypted = encrypted.replaceAll(String.valueOf(i), ENCRYPTCODE[i]);
+        }
+        return encrypted;
     }
 
     public void OnCreateAccountClick(View view){
@@ -87,9 +98,11 @@ public class CreateAccount extends AppCompatActivity {
         EditText emailText = findViewById(R.id.emailText);
 
         String username = usernameText.getText().toString().trim();
-        String password = passwordText.getText().toString().trim();
+        String tempPassword = passwordText.getText().toString().trim();
         String role = items[dropdown.getSelectedItemPosition()].toLowerCase().trim();
         String email = emailText.getText().toString().trim();
+
+        String password = encrypt(tempPassword);
 
         if(checkFieldValidity(email, username, password, role)){
             if(checkUsername(username)){
@@ -124,8 +137,8 @@ public class CreateAccount extends AppCompatActivity {
                 finish();
             }
         }else{
-            Toast.makeText(this, "Username must be at least "+ String.valueOf(usernameLength)+" characters long, " +
-                    "Password must be at least" + String.valueOf(passwordLength)+ " characters long", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Username must be at least "+ String.valueOf(USERNAMELENGTH)+" characters long, " +
+                    "Password must be at least" + String.valueOf(PASSWORDLENGTH)+ " characters long", Toast.LENGTH_LONG).show();
         }
     }
 }

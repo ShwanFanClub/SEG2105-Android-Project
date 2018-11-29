@@ -21,6 +21,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
     // static database variables
     public static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
+    private final String[] ENCRYPTCODE = new String[]{"0","i","ß","3","ω","f","Σ","ö","#","É"};
     public static DatabaseReference databaseUserAccounts;
 
     @Override
@@ -100,7 +101,21 @@ public class MainLoginActivity extends AppCompatActivity {
         }
         return null;
     }
+    private String encrypt(String password){
+        String encrypted = "";
+        byte[] bytes = password.getBytes();
 
+        for(byte b: bytes){
+            Byte byteInt = b;
+
+            encrypted += Integer.toHexString(byteInt);
+
+        }
+        for(int i = 1; i < ENCRYPTCODE.length; i++){
+            encrypted = encrypted.replaceAll(String.valueOf(i), ENCRYPTCODE[i]);
+        }
+        return encrypted;
+    }
     // on button click, checks to see if account is valid
     public void OnLoginButton(View view){
 
@@ -109,6 +124,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
         String username = usernameText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
+        password = encrypt(password);
 
         // makes sure username and password are stored in the system
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
