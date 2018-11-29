@@ -87,6 +87,20 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             ViewHolder viewHolder = new ViewHolder(contactView, listener, 4);
             viewHolders.add(viewHolder);
             return viewHolder;
+
+        }
+        // ViewServices class
+        else if(this.viewType == 5){
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+            // Inflate the custom layout
+            View contactView = inflater.inflate(R.layout.viewservice_custom_row_layout, parent, false);
+
+            // Return a new holder instance
+            ViewHolder viewHolder = new ViewHolder(contactView, listener, 5);
+            viewHolders.add(viewHolder);
+            return viewHolder;
+
         }
         else {
             throw new RuntimeException("Invalid viewType");
@@ -117,7 +131,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView ServiceName;
         public TextView ServiceCost;
-        public Button DeleteButton, UpdateButton, AddButton, RemoveButton;
+        public Button DeleteButton, UpdateButton, AddButton, RemoveButton, ViewButton;
         private String m_Text = "";
         private WeakReference<ClickListener> listenerRef;
 
@@ -140,6 +154,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             else if(viewType == 3){
                 RemoveButton = itemView.findViewById(R.id.remove_button);
                 RemoveButton.setOnClickListener(this);
+            }
+            else if(viewType == 5){
+                ViewButton = itemView.findViewById(R.id.view_button);
+                ViewButton.setOnClickListener(this);
             }
         }
 
@@ -208,6 +226,14 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 RemoveButton.setVisibility(View.GONE);
                 Toast.makeText(v.getContext(), "Service removed!",Toast.LENGTH_SHORT).show();
             }
+            // TODO Create button for this
+            /*
+            else if(viewType == 5){
+                ViewServices.viewService(mServices.get(getAdapterPosition()), getAdapterPosition());
+                ViewButton.setVisibility(View.GONE);
+                Toast.makeText(v.getContext(), "Viewing Service!",Toast.LENGTH_SHORT).show();
+            }
+            */
         }
     }
 }

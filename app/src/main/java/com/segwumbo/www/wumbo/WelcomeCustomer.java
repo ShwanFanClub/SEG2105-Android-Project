@@ -2,12 +2,16 @@ package com.segwumbo.www.wumbo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class WelcomeCustomer extends AppCompatActivity {
 
@@ -42,13 +46,18 @@ public class WelcomeCustomer extends AppCompatActivity {
     }
 
     public void OnServiceAvailableButtonClick(View view){
-        Intent createNewServiceIntent = new Intent(this, ViewServices.class);
-        startActivity(createNewServiceIntent);
+
+        Intent viewServiceIntent = new Intent(this, ViewServices.class);
+
+        Bundle bundle = new Bundle();
+        viewServiceIntent.putExtra("bundle", bundle);
+
+        startActivity(viewServiceIntent);
     }
 
     public void OnServiceBookedButtonClick(View view){
-        Intent createNewServiceIntent = new Intent(this, BookedServices.class);
-        startActivity(createNewServiceIntent);
+        Intent viewServiceIntent = new Intent(this, BookedServices.class);
+        startActivity(viewServiceIntent);
     }
 
 }

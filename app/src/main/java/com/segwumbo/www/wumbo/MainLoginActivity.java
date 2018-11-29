@@ -121,7 +121,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
             System.out.print(user.getRole());
             //if user is a service provider, brings up provider profile screen
-            if (user.getRole().equals("service provider")) {
+            if (user.getRole().equals("service provider")){
 
                 Intent loginIntent;
                 Bundle bundle = new Bundle();
@@ -159,7 +159,8 @@ public class MainLoginActivity extends AppCompatActivity {
                 bundle.putString("userKey", user.getId());
 
                 Intent loginIntent = new Intent(this, WelcomeCustomer.class);
-                loginIntent.putExtra("username", username);
+                loginIntent.putExtra("bundle", bundle);
+                loginIntent.putExtra("username",username);
 
                 usernameText.setText("");
                 passwordText.setText("");
