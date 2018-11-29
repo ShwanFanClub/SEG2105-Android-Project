@@ -265,10 +265,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/providerProfileServicesRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:layout_marginRight="15px"
-                android:scrollbars="vertical" />
+                android:scrollbars="none" />
 
         </LinearLayout>
     </ScrollView>
