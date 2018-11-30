@@ -42,7 +42,9 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot user : dataSnapshot.getChildren()) {
                     if (user.getKey().equals(userKey)) {
+
                         userAccount = user.getValue(UserAccount.class);
+
                         Days = userAccount.getProfile().sDays;
                         String temp = "";
                         if (Days != null && !Days.isEmpty()) {

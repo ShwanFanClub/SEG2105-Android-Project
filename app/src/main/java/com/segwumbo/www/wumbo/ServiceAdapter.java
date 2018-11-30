@@ -3,6 +3,8 @@ package com.segwumbo.www.wumbo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -226,14 +228,11 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 RemoveButton.setVisibility(View.GONE);
                 Toast.makeText(v.getContext(), "Service removed!",Toast.LENGTH_SHORT).show();
             }
-            // TODO Create button for this
-            /*
             else if(viewType == 5){
-                ViewServices.viewService(mServices.get(getAdapterPosition()), getAdapterPosition());
-                ViewButton.setVisibility(View.GONE);
-                Toast.makeText(v.getContext(), "Viewing Service!",Toast.LENGTH_SHORT).show();
+                v.getContext().startActivity(new Intent(v.getContext(),ServiceProfile.class));
+
             }
-            */
+
         }
     }
 }

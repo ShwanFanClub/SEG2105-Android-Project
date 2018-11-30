@@ -25,7 +25,9 @@
         <activity android:name=".AvailableServices" />
         <activity android:name=".WelcomeCustomer" />
         <activity android:name=".ViewServices" />
-        <activity android:name=".BookedServices"></activity>
+        <activity android:name=".BookedServices" />
+        <activity android:name=".ServiceProfile" />
+        <activity android:name=".RateUs"></activity>
     </application>
 
 </manifest>

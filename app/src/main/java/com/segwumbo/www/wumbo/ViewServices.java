@@ -1,5 +1,6 @@
 package com.segwumbo.www.wumbo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,18 +21,18 @@ import java.util.ArrayList;
 
 public class ViewServices extends AppCompatActivity {
 
-    private DatabaseReference databaseUsers;
+    private static DatabaseReference databaseUsers;
     private DatabaseReference databaseServices;
     private Query databaseRoles;
 
     private RecyclerView rvServices;
     private UserAccount userAccount, homeOwnerAcc;
     private Bundle infoBundle;
-    private String userKey;
+    private static String userKey, companyName;
     private int viewChangeIndex;
 
-
     private ArrayList<Service> allServicesView, currentServicesView, combined;
+    private static ArrayList<Service> servicesOffered;
 
     @Override
     protected void onStart() {
@@ -104,7 +105,20 @@ public class ViewServices extends AppCompatActivity {
 
         userKey = infoBundle.getString("userKey");
 
+    }
+
+    /*
+    public void OnViewServiceButtonClick(View view){
+
+        Intent viewServiceIntent = new Intent(this, ServiceProfile.class);
+
+        Bundle bundle = new Bundle();
+        viewServiceIntent.putExtra("bundle", bundle);
+
+        startActivity(viewServiceIntent);
 
     }
+    */
+
 }
 

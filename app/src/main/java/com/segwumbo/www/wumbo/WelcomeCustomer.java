@@ -25,6 +25,7 @@ public class WelcomeCustomer extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
+
         //Get user's name from firebase
         String userName = bundle.getString("username");
         // Display user's name on the device
