@@ -1,5 +1,7 @@
 package com.segwumbo.www.wumbo;
 
+import java.util.ArrayList;
+
 public class UserAccount {
 
     private String id;
@@ -8,6 +10,7 @@ public class UserAccount {
     private String email;
     private String role;
     private ServiceProviderProfile profile;
+    private ArrayList<Service> bookedServices;
 
     public UserAccount() {
         // Default constructor required for calls to DataSnapshot.getValue(UserAccount.class)
@@ -19,6 +22,7 @@ public class UserAccount {
         this.password = password;
         this.email = email;
         this.role = role;
+        this.bookedServices = new ArrayList<>();
     }
 
     public UserAccount(UserAccount account, ServiceProviderProfile profile){
@@ -28,6 +32,7 @@ public class UserAccount {
         this.email = account.getEmail();
         this.role = account.getRole();
         this.profile = profile;
+       //this.hoProfile = hoProfile;
     }
 
     public void setId(String id){
@@ -74,7 +79,16 @@ public class UserAccount {
         return profile;
     }
 
+    public void setBookedServices(ArrayList<Service> bookedServices){
+        this.bookedServices = bookedServices;
+    }
+
+    public ArrayList<Service> getBookedServices(){
+        return this.bookedServices;
+    }
+
     public void setProfile(ServiceProviderProfile profile) {
         this.profile = profile;
     }
+
 }

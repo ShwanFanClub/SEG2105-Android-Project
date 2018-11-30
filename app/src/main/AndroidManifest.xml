@@ -27,7 +27,8 @@
         <activity android:name=".ViewServices" />
         <activity android:name=".BookedServices" />
         <activity android:name=".ServiceProfile" />
-        <activity android:name=".RateUs"></activity>
+        <activity android:name=".RateUs" />
+        <activity android:name=".PickTime"></activity>
     </application>
 
 </manifest>

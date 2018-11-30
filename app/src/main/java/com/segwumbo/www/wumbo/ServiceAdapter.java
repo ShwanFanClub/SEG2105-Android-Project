@@ -104,6 +104,19 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             return viewHolder;
 
         }
+        // BookServices class
+        else if(this.viewType == 6){
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+            // Inflate the custom layout
+            View contactView = inflater.inflate(R.layout.bookservice_custom_row_layout, parent, false);
+
+            // Return a new holder instance
+            ViewHolder viewHolder = new ViewHolder(contactView, listener, 6);
+            viewHolders.add(viewHolder);
+            return viewHolder;
+
+        }
         else {
             throw new RuntimeException("Invalid viewType");
         }
@@ -133,7 +146,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView ServiceName;
         public TextView ServiceCost;
-        public Button DeleteButton, UpdateButton, AddButton, RemoveButton, ViewButton;
+        public Button DeleteButton, UpdateButton, AddButton, RemoveButton, ViewButton, BookButton;
         private String m_Text = "";
         private WeakReference<ClickListener> listenerRef;
 
@@ -160,6 +173,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             else if(viewType == 5){
                 ViewButton = itemView.findViewById(R.id.view_button);
                 ViewButton.setOnClickListener(this);
+            }
+            else if(viewType == 6) {
+                BookButton = itemView.findViewById(R.id.book_button);
+                BookButton.setOnClickListener(this);
             }
         }
 
@@ -229,7 +246,35 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 Toast.makeText(v.getContext(), "Service removed!",Toast.LENGTH_SHORT).show();
             }
             else if(viewType == 5){
-                v.getContext().startActivity(new Intent(v.getContext(),ServiceProfile.class));
+
+                if (v.getId() == ViewButton.getId()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    String serviceName = mServices.get(getAdapterPosition()).getName();
+
+                    Intent intent = new Intent(v.getContext(), ServiceProfile.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", serviceName);
+                    intent.putExtra("bundle", bundle);
+
+                    v.getContext().startActivity(intent);
+                }
+
+            }
+            else if(viewType == 6){
+
+                if (v.getId() == BookButton.getId()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    String serviceName = mServices.get(getAdapterPosition()).getName();
+
+                    Intent intent = new Intent(v.getContext(), PickTime.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", serviceName);
+                    intent.putExtra("bundle", bundle);
+
+                    v.getContext().startActivity(intent);
+                }
 
             }
 
