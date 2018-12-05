@@ -47,24 +47,28 @@
 
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="10dp" />
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/ServiceAvailable"
-            android:layout_width="200dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/ovalbutton"
             android:onClick="OnServiceAvailableButtonClick"
-            android:text="See Available Services" />
+            android:text="See Available Services"
+            android:textColor="#FFF" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20px" />
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/ServiceBooked"
-            android:layout_width="200dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/ovalbutton"
             android:onClick="OnServiceBookedButtonClick"
-            android:text="See Booked Services" />
+            android:text="See Booked Services"
+            android:textColor="#FFF" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

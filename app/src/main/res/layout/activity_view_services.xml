@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:text="Available Services"
+            android:text="FIND A SERVICE TO BOOK"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -37,8 +37,9 @@
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:scrollbars="vertical"
-            tools:itemCount="21" />
+            tools:itemCount="25" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

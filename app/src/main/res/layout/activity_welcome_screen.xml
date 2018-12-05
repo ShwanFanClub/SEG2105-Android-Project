@@ -6,71 +6,77 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeAdmin">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:scrollbarStyle="insideInset">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="75dp" />
-
-        <TextView
-            android:id="@+id/welcomeUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="(Displays username/name)"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/userRole"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="(Displays role)"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <Button
-            android:id="@+id/serviceCreate"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ovalbutton"
-            android:onClick="OnCreateServiceButtonClick"
-            android:text="Create New Service"
-            android:textColor="#FFF" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/userLists"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="(Displays username/name)"
-            android:text="List of Users"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="75dp" />
 
-        <TextView
-            android:id="@+id/registeredUsers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="(Displays role)"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/welcomeUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="(Displays username/name)"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userRole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="(Displays role)"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <Button
+                android:id="@+id/serviceCreate"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ovalbutton"
+                android:onClick="OnCreateServiceButtonClick"
+                android:text="Create New Service"
+                android:textColor="#FFF" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/userLists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="(Displays username/name)"
+                android:text="List of Users"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <TextView
+                android:id="@+id/registeredUsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="(Displays role)"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

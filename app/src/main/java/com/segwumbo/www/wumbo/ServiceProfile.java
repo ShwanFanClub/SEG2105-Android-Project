@@ -4,13 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class ServiceProfile extends AppCompatActivity {
@@ -35,7 +27,7 @@ public class ServiceProfile extends AppCompatActivity {
     private Service serviceToAdd;
 
     private UserAccount userAccount;
-    private String userKey, service, username, address, phoneNumber, description;
+    private String userKey, service, username, address, phoneNumber, description, serviceKey;
 
     private Button bookService;
     private TextView serviceNameText, companyNameText, phoneNumberText, descriptionText, addressText;
@@ -161,6 +153,7 @@ public class ServiceProfile extends AppCompatActivity {
 
     public void OnRateButtonClick(View view){
         Intent viewServiceIntent = new Intent(this, RateUs.class);
+        viewServiceIntent.putExtra("service name", serviceToAdd.getName());
         startActivity(viewServiceIntent);
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/view_button"
@@ -47,8 +47,8 @@
             android:layout_gravity="start"
             android:background="@drawable/roundedbutton"
             android:gravity="center|start"
-            android:text="View Service"
             android:onClick="OnViewServiceButtonClick"
+            android:text="View Service"
             android:textAlignment="center"
             android:textColor="#FFF"
             tools:layout_editor_absoluteX="280dp"

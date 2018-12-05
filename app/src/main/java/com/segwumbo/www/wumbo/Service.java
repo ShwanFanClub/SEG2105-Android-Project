@@ -5,6 +5,8 @@ public class Service {
     private String id;
     private String name;
     private double hourlyRate;
+    private double rating;
+    private boolean beenRatedAtLeastOnce;
 
     public Service() {
         // Default constructor required for calls to DataSnapshot.getValue(Service.class)
@@ -15,6 +17,8 @@ public class Service {
         setId(id);
         setName(name);
         setHourlyRate(hourlyRate);
+        setRating(0);
+        setBeenRatedAtLeastOnce(false);
     }
 
     public void setId(String id){
@@ -39,5 +43,17 @@ public class Service {
 
     public double getHourlyRate(){
         return this.hourlyRate;
+    }
+
+    public void setRating(double rating){ this.rating= rating; }
+
+    public double getRating(){
+        return this.rating;
+    }
+
+    public void setBeenRatedAtLeastOnce(boolean hasBeenRated){ this.beenRatedAtLeastOnce = hasBeenRated; }
+
+    public boolean getBeenRatedAtLeastOnce(){
+        return this.beenRatedAtLeastOnce;
     }
 }
