@@ -47,6 +47,7 @@
                 android:layout_height="55dp"
 
                 android:background="@drawable/ovalbutton"
+                android:onClick="onType"
                 android:text="Type"
                 android:textAlignment="center"
                 android:textColor="#FFF" />

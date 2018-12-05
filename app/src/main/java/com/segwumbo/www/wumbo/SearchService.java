@@ -236,17 +236,23 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         set();
     }
     public void onRate(View v){
-        /*text.setText("");
+        text.setText("");
+        Service temp;
         availableServices.clear();
         ArrayList<Service> rate = (ArrayList<Service>) allServices.clone();
-        availableServices.add(rate.get(0));
-        for (int i = 1; i<rate.size();i++){
-            for (int j = 0; j<availableServices.size();j++){
-                if (rate.get(i).getRating() > availableServices.get(i).getRating()){
-
-                }
+        for (int i=0; i<rate.size()-1;i++){
+            if (rate.get(i).getRating()<rate.get(i+1).getRating()){
+                temp = rate.get(i);
+                rate.set(i,rate.get(i+1));
+                rate.set(i+1,temp);
+                i=0;
             }
-        }*/
+        }
+        availableServices = rate;
+        onResume();
+    }
+    public void onType(View v){
+        availableServices = (ArrayList<Service>) allServices.clone();
         onResume();
     }
 }
