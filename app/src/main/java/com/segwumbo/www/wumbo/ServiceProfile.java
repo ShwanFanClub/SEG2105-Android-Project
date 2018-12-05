@@ -31,6 +31,7 @@ public class ServiceProfile extends AppCompatActivity {
 
     private Button bookService;
     private TextView serviceNameText, companyNameText, phoneNumberText, descriptionText, addressText;
+    private static Boolean disabled = false;
 
     @Override
     protected void onStart() {
@@ -141,20 +142,31 @@ public class ServiceProfile extends AppCompatActivity {
 
 
        // bookService.setEnabled(false);
+
         bookedServices.add(serviceToAdd);
+        databaseUsers.child(userKey).child("booked services").setValue(bookedServices);
 
-        databaseUsers.child(userKey).child("bookedServices").setValue(bookedServices);
-
-        */
-
+*/
         Toast.makeText(view.getContext(), "You have booked this service!",Toast.LENGTH_SHORT).show();
         finish();
     }
 
     public void OnRateButtonClick(View view){
-        Intent viewServiceIntent = new Intent(this, RateUs.class);
-        viewServiceIntent.putExtra("service name", serviceToAdd.getName());
-        startActivity(viewServiceIntent);
+
+
+        Button btn = (Button) findViewById(R.id.rate);
+
+        if(disabled){
+            Toast.makeText(this,"You have already rated this service!",Toast.LENGTH_SHORT).show();
+        }else if(serviceToAdd.isRated() == false){
+                Intent viewServiceIntent = new Intent(this, RateUs.class);
+                viewServiceIntent.putExtra("service name", serviceToAdd.getName());
+                startActivity(viewServiceIntent);
+                disabled = true;
+
+        } 
+
     }
+
 }
 

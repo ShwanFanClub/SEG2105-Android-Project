@@ -20,6 +20,7 @@ public class RateUs extends AppCompatActivity {
     private Service serviceToRate;
     private RatingBar rating;
     private boolean hasBeenRatedAtLeastOnce;
+    private static boolean userRate = false;
 
     @Override
     protected void onStart() {
@@ -62,15 +63,21 @@ public class RateUs extends AppCompatActivity {
         float ratingFromUser = rating.getRating();
         float updatedRating;
 
-        if(hasBeenRatedAtLeastOnce){
-            updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
+        if(serviceToRate.isRated() == false){
+            if(hasBeenRatedAtLeastOnce){
+                updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
+            }
+            else{
+                updatedRating = ratingFromUser;
+                databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
+            }
+
+            databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
+            Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
+            finish();
         }
-        else{
-            updatedRating = ratingFromUser;
-            databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
-        }
-        databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
-        Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
-        finish();
+
+        serviceToRate.setRated(true);
     }
+
 }

@@ -69,7 +69,6 @@ public class ViewServices extends AppCompatActivity {
 
                     }
 
-
                     ServiceAdapter sAdapter = new ServiceAdapter(allServicesView, new ClickListener() {
                         @Override
                         public void onPositionClicked(int position) { }
@@ -82,7 +81,9 @@ public class ViewServices extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
         rvServices.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
