@@ -20,14 +20,11 @@ public class RateUs extends AppCompatActivity {
     private Service serviceToRate;
     private RatingBar rating;
     private boolean hasBeenRatedAtLeastOnce;
-    private static boolean userRate = false;
 
     @Override
     protected void onStart() {
         super.onStart();
-
         databaseServices.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot){
 
@@ -40,7 +37,6 @@ public class RateUs extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
@@ -63,21 +59,16 @@ public class RateUs extends AppCompatActivity {
         float ratingFromUser = rating.getRating();
         float updatedRating;
 
-        if(serviceToRate.isRated() == false){
-            if(hasBeenRatedAtLeastOnce){
-                updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
-            }
-            else{
-                updatedRating = ratingFromUser;
-                databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
-            }
-
-            databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
-            Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
-            finish();
+        if(hasBeenRatedAtLeastOnce){
+            updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
+        }
+        else{
+            updatedRating = ratingFromUser;
+            databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
         }
 
-        serviceToRate.setRated(true);
+        databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
+        Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
+        finish();
     }
-
 }
