@@ -164,7 +164,7 @@ public class ServiceProfile extends AppCompatActivity {
                 startActivity(viewServiceIntent);
                 disabled = true;
 
-        } 
+        } // End if
 
     }
 
