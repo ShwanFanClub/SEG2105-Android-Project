@@ -1,5 +1,6 @@
 package com.segwumbo.www.wumbo;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -19,15 +21,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 
-public class SearchService extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+public class SearchService extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
     private DatabaseReference databaseUsers;
     private DatabaseReference databaseServices;
     private Button type,time,rating;
+    private int year,month,date;
     private static RecyclerView rvServicesAvailable;
     public static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
     private int tempHour,tempMin;
@@ -35,6 +43,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
     private ArrayList<Service> availableServices;
     private ArrayList<Service> allServices = new ArrayList<>();
     private TextView text;
+
     @Override
     protected void onStart() {
 
@@ -164,7 +173,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
     }
     public void set(){
         getServicesOnTime(tempHour,tempMin);
-        int s=availableServices.size();
+        /*int s=availableServices.size();
         for (int i=1;i<availableServices.size();i++){
             if (availableServices.get(0).getName().equals(availableServices.get(i).getName())){
                 s=i;
@@ -181,12 +190,28 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         availableServices.clear();
         for (int i=0;i<s;i++){
             availableServices.add(a.get(i));
+        }*/
+        ArrayList<String> ar = new ArrayList<>();
+        for (int i =0; i< availableServices.size();i++){
+            ar.add(availableServices.get(i).getName());
+        }
+        Set<String> hs = new HashSet<>();
+        hs.addAll(ar);
+        ar.clear();
+        ar.addAll(hs);
+        availableServices.clear();
+        for (int i=0; i<ar.size();i++){
+            for (int j=0; j<allServices.size(); j++){
+                if (ar.get(i).equals(allServices.get(j).getName())){
+                    availableServices.add(allServices.get(j));
+                }
+            }
         }
         onResume();
         //startActivity(new Intent(getIntent()));
     }
     private void getServicesOnTime(int sHour,int sMin){
-        text.append(sHour+":"+sMin+"\n");
+        //text.append(sHour+":"+sMin+"\n");
         availableServices.clear();
         times.clear();
         for (int i=0; i<allUserAccounts.size();i++){
@@ -195,6 +220,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
                     //text.append(allUserAccounts.get(i).getUsername()+"\n");
                     times = allUserAccounts.get(i).getProfile().sDays;
                     for (int j = 0;j<times.size(); j++){
+
                         if (times.get(j).startHour>sHour && sHour<times.get(j).endHour){
                             try{
                                 addServiceAvailable(allUserAccounts.get(i).getProfile().getServicesOffered());
@@ -264,4 +290,5 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         availableServices = (ArrayList<Service>) allServices.clone();
         onResume();
     }
+
 }
