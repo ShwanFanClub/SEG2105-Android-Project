@@ -287,6 +287,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
     }
     public void onType(View v){
         text.setText("");
+        availableServices.clear();
         availableServices = (ArrayList<Service>) allServices.clone();
         onResume();
     }

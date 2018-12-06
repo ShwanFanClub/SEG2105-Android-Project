@@ -123,18 +123,9 @@ public class ServiceProfile extends AppCompatActivity {
     }
 
     public void OnRateButtonClick(View view){
-
-        if(disabled){
-            Toast.makeText(this,"You have already rated this service!",Toast.LENGTH_SHORT).show();
-        }else if(serviceToAdd.isRated() == false){
-                Intent viewServiceIntent = new Intent(this, RateUs.class);
-                viewServiceIntent.putExtra("service name", serviceToAdd.getName());
-                startActivity(viewServiceIntent);
-                disabled = true;
-
-        } // End if
-
+        Intent viewServiceIntent = new Intent(this, RateUs.class);
+        viewServiceIntent.putExtra("service name", service);
+        startActivity(viewServiceIntent);
     }
-
 }
 
