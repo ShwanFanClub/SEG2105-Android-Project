@@ -20,6 +20,7 @@ public class RateUs extends AppCompatActivity {
     private Service serviceToRate;
     private RatingBar rating;
     private boolean hasBeenRatedAtLeastOnce;
+    static float updatedRating;
 
     @Override
     protected void onStart() {
@@ -57,11 +58,10 @@ public class RateUs extends AppCompatActivity {
     public void OnSubmitButtonClick(View view){
 
         float ratingFromUser = rating.getRating();
-        float updatedRating;
 
         if(ServiceProfile.disabled == false){
             if(hasBeenRatedAtLeastOnce){
-                updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
+                updatedRating = calculateUpdatedRating(ratingFromUser, serviceToRate.getRating());
             }
             else{
                 updatedRating = ratingFromUser;
@@ -74,5 +74,10 @@ public class RateUs extends AppCompatActivity {
         }
 
         ServiceProfile.disabled = true;
+    }
+
+    public static float calculateUpdatedRating(double ratingFromUser, double currentRating){
+
+        return (float) (((ratingFromUser / 5) + (currentRating / 5)) / 2) * 5;
     }
 }

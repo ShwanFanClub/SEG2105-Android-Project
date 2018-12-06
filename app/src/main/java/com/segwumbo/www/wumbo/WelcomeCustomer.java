@@ -34,15 +34,12 @@ public class WelcomeCustomer extends AppCompatActivity {
         welcomeHomeowner.setText("Welcome to Wumbo, " + userName + "!");
 
         // Get user's role from firebase
-        for(UserAccount account: MainLoginActivity.allUserAccounts){
-            if(account.getUsername().equals(userName)){
 
-                // Display user's role on the device
-                TextView welcomeRole = findViewById(R.id.homeownerRole);
+        // Display user's role on the device
+        TextView welcomeRole = findViewById(R.id.homeownerRole);
 
-                welcomeRole.setText("You are logged in as: " + account.getRole());
-            } // End if
-        } // End for
+        welcomeRole.setText("You are logged in as: homeowner");
+
 
     }
 

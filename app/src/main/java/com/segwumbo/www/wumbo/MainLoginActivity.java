@@ -21,7 +21,7 @@ public class MainLoginActivity extends AppCompatActivity {
 
     // static database variables
     public static ArrayList<UserAccount> allUserAccounts = new ArrayList<UserAccount>();
-    private final String[] ENCRYPTCODE = new String[]{"0","i","ß","3","ω","f","Σ","ö","#","É"};
+    private static final String[]  ENCRYPTCODE = new String[]{"0","i","ß","3","ω","f","Σ","ö","#","É"};
     public static DatabaseReference databaseUserAccounts;
 
     @Override
@@ -103,7 +103,7 @@ public class MainLoginActivity extends AppCompatActivity {
         }
         return null;
     }
-    private String encrypt(String password){
+    public static String encrypt(String password){
         String encrypted = "";
         byte[] bytes = password.getBytes();
 

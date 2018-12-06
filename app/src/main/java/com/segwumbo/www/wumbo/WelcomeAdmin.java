@@ -35,7 +35,6 @@ public class WelcomeAdmin extends AppCompatActivity {
 
                     if(!userAccount.getUsername().equals("admin")){
                         numberOfUsers++;
-                        assert userAccount != null;
                         temp += numberOfUsers + ". " + userAccount.getUsername() + "\n";
                     }
                 }
@@ -58,30 +57,16 @@ public class WelcomeAdmin extends AppCompatActivity {
         String userName = bundle.getString("username");
         // Display user's name on the device
         TextView welcomeUser = findViewById(R.id.welcomeUser);
-        TextView userListTitle = findViewById(R.id.userLists);
         userList = findViewById(R.id.registeredUsers);
-        Button createService = findViewById(R.id.serviceCreate);
 
-        createService.setVisibility(View.GONE);
-        userListTitle.setVisibility(View.GONE);
-        userList.setVisibility(View.GONE);
         welcomeUser.setText("Welcome to Wumbo, " + userName + "!");
 
-        if(userName.equals("admin")){
-            createService.setVisibility(View.VISIBLE);
-            userListTitle.setVisibility(View.VISIBLE);
-            userList.setVisibility(View.VISIBLE);
-        }
 
-        for(UserAccount account: MainLoginActivity.allUserAccounts){
-            if(account.getUsername().equals(userName)){
+        TextView welcomeRole = findViewById(R.id.userRole);
 
-                // Display user's role on the device
-                TextView welcomeRole = findViewById(R.id.userRole);
+        welcomeRole.setText("You are logged in as: admin");
 
-                welcomeRole.setText("You are logged in as: " + account.getRole());
-            }
-        }
+
 
     }
 
