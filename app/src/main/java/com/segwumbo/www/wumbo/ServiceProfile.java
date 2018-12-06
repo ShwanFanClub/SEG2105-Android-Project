@@ -47,7 +47,6 @@ public class ServiceProfile extends AppCompatActivity {
                         address = userAccount.getProfile().getAddress();
                         phoneNumber = userAccount.getProfile().getPhoneNumber();
                         description = userAccount.getProfile().getDescription();
-
                         populateFields(service, username, address, phoneNumber, description);
                     }
                 }
@@ -118,6 +117,10 @@ public class ServiceProfile extends AppCompatActivity {
         databaseUsers.child(userKey).child("booked services").setValue(bookedServices);
 
 */
+
+        //databaseUsers.child(userKey).setValue(u.get(0));
+        //bookedServices.add(serviceToAdd);
+        //databaseUsers.child(userKey).child("booked services").setValue(bookedServices);
         Toast.makeText(view.getContext(), "You have booked this service!",Toast.LENGTH_SHORT).show();
         finish();
     }
