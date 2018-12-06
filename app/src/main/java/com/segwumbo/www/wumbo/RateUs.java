@@ -59,16 +59,20 @@ public class RateUs extends AppCompatActivity {
         float ratingFromUser = rating.getRating();
         float updatedRating;
 
-        if(hasBeenRatedAtLeastOnce){
-            updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
-        }
-        else{
-            updatedRating = ratingFromUser;
-            databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
+        if(ServiceProfile.disabled == false){
+            if(hasBeenRatedAtLeastOnce){
+                updatedRating = (float) (((ratingFromUser / 5) + (serviceToRate.getRating() / 5)) / 2) * 5;
+            }
+            else{
+                updatedRating = ratingFromUser;
+                databaseServices.child(serviceKey).child("beenRatedAtLeastOnce").setValue(true);
+            }
+
+            databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
+            Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
+            finish();
         }
 
-        databaseServices.child(serviceKey).child("rating").setValue(updatedRating);
-        Toast.makeText(view.getContext(), "Thanks for Rating!",Toast.LENGTH_SHORT).show();
-        finish();
+        ServiceProfile.disabled = true;
     }
 }

@@ -6,7 +6,8 @@ public class Service {
     private String name;
     private double hourlyRate;
     private double rating;
-    private boolean beenRatedAtLeastOnce, alreadyRated;
+    private boolean beenRatedAtLeastOnce;
+    private boolean alreadyRated = false;
 
     public Service() {
         // Default constructor required for calls to DataSnapshot.getValue(Service.class)
@@ -51,11 +52,11 @@ public class Service {
         return this.rating;
     }
 
-    public boolean isRated(){
+    public boolean getIsRated(){
         return this.alreadyRated;
     }
 
-    public boolean setRated(boolean rated){
+    public boolean setIsRated(boolean rated){
         return this.alreadyRated = rated;
     }
 

@@ -31,7 +31,7 @@ public class ServiceProfile extends AppCompatActivity {
 
     private Button bookService;
     private TextView serviceNameText, companyNameText, phoneNumberText, descriptionText, addressText;
-    private static Boolean disabled = false;
+    public static Boolean disabled = false;
 
     @Override
     protected void onStart() {
@@ -57,6 +57,7 @@ public class ServiceProfile extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -83,6 +84,9 @@ public class ServiceProfile extends AppCompatActivity {
 
         username = infoBundle.getString("username");
         service = infoBundle.getString("service name");
+
+        disabled = false;
+
     }
 
     public void populateFields(String service, String username, String address, String phoneNumber, String description){
@@ -126,9 +130,15 @@ public class ServiceProfile extends AppCompatActivity {
     }
 
     public void OnRateButtonClick(View view){
-        Intent viewServiceIntent = new Intent(this, RateUs.class);
-        viewServiceIntent.putExtra("service name", service);
-        startActivity(viewServiceIntent);
+
+        if (disabled){
+            Toast.makeText(view.getContext(), "You have already rated this service!",Toast.LENGTH_SHORT).show();
+        } else {
+            Intent viewServiceIntent = new Intent(this, RateUs.class);
+            viewServiceIntent.putExtra("service name", service);
+            startActivity(viewServiceIntent);
+        }
+
     }
 }
 
