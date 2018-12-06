@@ -44,12 +44,6 @@ public class PasswordEncryptionTest {
         String encrypted = MainLoginActivity.encrypt(password);
         String expected = "ABC123!@#  D";
         assertEquals("Test Valid Password, Expected not the same", expected,encrypted);
-    }public void testBlank(){
-        String password = "";
-        String encrypted = MainLoginActivity.encrypt(password);
-        String expected = "";
-        assertEquals("Test Blank Password, Expected blank", expected,encrypted);
-    }
 
     @Test
     public void testPasswordType5(){
