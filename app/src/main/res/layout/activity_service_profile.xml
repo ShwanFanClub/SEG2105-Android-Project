@@ -17,23 +17,24 @@
             android:layout_height="38dp" />
 
         <TextView
-            android:id="@+id/service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="(Displays Service Name)"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/companyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Company Name"
             android:inputType="text|textPersonName"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="(Displays Service Name)"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"

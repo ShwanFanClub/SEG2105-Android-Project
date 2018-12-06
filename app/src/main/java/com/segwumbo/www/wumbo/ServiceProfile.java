@@ -43,37 +43,12 @@ public class ServiceProfile extends AppCompatActivity {
                 for (DataSnapshot user : dataSnapshot.getChildren()){
                     userAccount = user.getValue(UserAccount.class);
 
-                    if(user.getKey().equals(userKey)){
+                    if(userAccount.getUsername().equals(username)){
+                        address = userAccount.getProfile().getAddress();
+                        phoneNumber = userAccount.getProfile().getPhoneNumber();
+                        description = userAccount.getProfile().getDescription();
 
-                        if(userAccount.getBookedServices() != null) {
-                            bookedServices = userAccount.getBookedServices();
-                        }
-                    }
-
-                    if(userAccount.getRole().equals("service provider")){
-
-                        if(userAccount.getProfile() == null || userAccount.getProfile().getServicesOffered() == null){
-                            continue;
-                        }
-                        else{
-                            servicesOffered = userAccount.getProfile().getServicesOffered();
-                        }
-
-                        if(servicesOffered != null) {
-                            for (Service s : servicesOffered) {
-                                if (s.getName().equals(service)) {
-
-                                    serviceToAdd = s;
-                                    username = userAccount.getUsername();
-                                    address = userAccount.getProfile().getAddress();
-                                    phoneNumber = userAccount.getProfile().getPhoneNumber();
-                                    description = userAccount.getProfile().getDescription();
-
-                                    populateFields(service, username, address, phoneNumber, description);
-
-                                }
-                            }
-                        }
+                        populateFields(service, username, address, phoneNumber, description);
                     }
                 }
             }
@@ -107,12 +82,8 @@ public class ServiceProfile extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Bundle infoBundle = bundle.getBundle("bundle");
 
-        userKey = infoBundle.getString("userKey");
-
-        service = infoBundle.getString("name");
-
-
-
+        username = infoBundle.getString("username");
+        service = infoBundle.getString("service name");
     }
 
     public void populateFields(String service, String username, String address, String phoneNumber, String description){
@@ -120,7 +91,7 @@ public class ServiceProfile extends AppCompatActivity {
         // Getting and setting all text views
 
         serviceNameText.setText(service);
-        companyNameText.setText(username + " offers this service");
+        companyNameText.setText(username);
         phoneNumberText.setText(phoneNumber);
         addressText.setText(address);
         descriptionText.setText(description);
@@ -152,9 +123,6 @@ public class ServiceProfile extends AppCompatActivity {
     }
 
     public void OnRateButtonClick(View view){
-
-
-        Button btn = (Button) findViewById(R.id.rate);
 
         if(disabled){
             Toast.makeText(this,"You have already rated this service!",Toast.LENGTH_SHORT).show();

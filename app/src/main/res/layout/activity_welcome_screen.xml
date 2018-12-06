@@ -73,7 +73,7 @@
                 android:id="@+id/registeredUsers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="(Displays role)"
+                android:hint="(Displays users)"
                 android:textAlignment="center"
                 android:textSize="20sp" />
         </LinearLayout>

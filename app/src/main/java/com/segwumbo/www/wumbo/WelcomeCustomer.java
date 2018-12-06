@@ -48,7 +48,7 @@ public class WelcomeCustomer extends AppCompatActivity {
 
     public void OnServiceAvailableButtonClick(View view){
 
-        Intent viewServiceIntent = new Intent(this, ViewServices.class);
+        Intent viewServiceIntent = new Intent(this, SearchService.class);
 
         Bundle bundle = new Bundle();
         viewServiceIntent.putExtra("bundle", bundle);

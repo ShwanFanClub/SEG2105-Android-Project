@@ -83,7 +83,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
             // Inflate the custom layout
-            View contactView = inflater.inflate(R.layout.plain_custom_row_layout, parent, false);
+            View contactView = inflater.inflate(R.layout.viewrating_custom_row_layout, parent, false);
 
             // Return a new holder instance
             ViewHolder viewHolder = new ViewHolder(contactView, listener, 4);
@@ -104,19 +104,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
             return viewHolder;
 
         }
-        // BookServices class
-        else if(this.viewType == 6){
-            Context context = parent.getContext();
-            LayoutInflater inflater = LayoutInflater.from(context);
-            // Inflate the custom layout
-            View contactView = inflater.inflate(R.layout.bookservice_custom_row_layout, parent, false);
 
-            // Return a new holder instance
-            ViewHolder viewHolder = new ViewHolder(contactView, listener, 6);
-            viewHolders.add(viewHolder);
-            return viewHolder;
-
-        }
         else {
             throw new RuntimeException("Invalid viewType");
         }
@@ -170,13 +158,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 RemoveButton = itemView.findViewById(R.id.remove_button);
                 RemoveButton.setOnClickListener(this);
             }
-            else if(viewType == 5){
+            else if(viewType == 5 || viewType == 4){
                 ViewButton = itemView.findViewById(R.id.view_button);
                 ViewButton.setOnClickListener(this);
-            }
-            else if(viewType == 6) {
-                BookButton = itemView.findViewById(R.id.book_button);
-                BookButton.setOnClickListener(this);
             }
         }
 
@@ -245,14 +229,15 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                 RemoveButton.setVisibility(View.GONE);
                 Toast.makeText(v.getContext(), "Service removed!",Toast.LENGTH_SHORT).show();
             }
-            else if(viewType == 5){
+            else if(viewType == 5 || viewType == 4){
 
                 if (v.getId() == ViewButton.getId()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     String serviceName = mServices.get(getAdapterPosition()).getName();
 
-                    Intent intent = new Intent(v.getContext(), ServiceProfile.class);
+                    //Intent intent = new Intent(v.getContext(), ServiceProfile.class);
 
+                    Intent intent = new Intent(v.getContext(), ViewProviders.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("name", serviceName);
                     intent.putExtra("bundle", bundle);
@@ -267,7 +252,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     String serviceName = mServices.get(getAdapterPosition()).getName();
 
-                    Intent intent = new Intent(v.getContext(), PickTime.class);
+                    Intent intent = new Intent(v.getContext(), ServiceProfile.class);
 
                     Bundle bundle = new Bundle();
                     bundle.putString("name", serviceName);
@@ -275,9 +260,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
 
                     v.getContext().startActivity(intent);
                 }
-
             }
-
         }
     }
 }

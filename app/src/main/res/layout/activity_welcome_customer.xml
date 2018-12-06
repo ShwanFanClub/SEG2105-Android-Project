@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ovalbutton"
             android:onClick="OnServiceAvailableButtonClick"
-            android:text="See Available Services"
+            android:text="Book a Service"
             android:textColor="#FFF" />
 
         <Space

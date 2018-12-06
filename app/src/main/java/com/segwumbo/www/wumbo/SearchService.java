@@ -72,7 +72,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         ServiceAdapter sAdapter = new ServiceAdapter(availableServices, new ClickListener() {
             @Override
             public void onPositionClicked(int position) { }
-        }, 6);
+        }, 5);
         rvServicesAvailable.setAdapter(sAdapter);
         rvServicesAvailable.setLayoutManager(new LinearLayoutManager(this));
         databaseServices.addValueEventListener(new ValueEventListener() {
@@ -109,7 +109,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
             @Override
             public void onPositionClicked(int position) {
             }
-        }, 6);
+        }, 5);
         rvServicesAvailable.setAdapter(sAdapter);
         rvServicesAvailable.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -139,7 +139,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         ServiceAdapter sAdapter = new ServiceAdapter(availableServices, new ClickListener() {
             @Override
             public void onPositionClicked(int position) { }
-        }, 6);
+        }, 5);
         rvServicesAvailable.setAdapter(sAdapter);
         rvServicesAvailable.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -168,7 +168,7 @@ public class SearchService extends AppCompatActivity implements TimePickerDialog
         ServiceAdapter sAdapter = new ServiceAdapter(availableServices, new ClickListener() {
             @Override
             public void onPositionClicked(int position) { }
-        }, 6);
+        }, 5);
         rvServicesAvailable.setAdapter(sAdapter);
     }
     public void set(){

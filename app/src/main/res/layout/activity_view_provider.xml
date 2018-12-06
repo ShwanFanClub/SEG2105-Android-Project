@@ -20,9 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:text="FIND A SERVICE TO BOOK"
+            android:text="SERVICE PROVIDERS THAT OFFERS:"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/NameOfService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:hint="(Name of service)"
+            android:textAlignment="center"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <Space
@@ -31,7 +41,7 @@
             android:layout_height="20dp" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvServicesView"
+            android:id="@+id/rvUsersView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15px"

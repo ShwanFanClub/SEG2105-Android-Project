@@ -24,7 +24,7 @@
         <activity android:name=".UpdateTime" />
         <activity android:name=".AvailableServices" />
         <activity android:name=".WelcomeCustomer" />
-        <activity android:name=".ViewServices" />
+        <activity android:name=".ViewProviders" />
         <activity android:name=".BookedServices" />
         <activity android:name=".ServiceProfile" />
         <activity android:name=".RateUs" />
